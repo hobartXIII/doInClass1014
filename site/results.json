@@ -1,0 +1,4254 @@
+{
+ "meta": {
+  "title": "50 Startups Multiple Linear Regression Explorer",
+  "dataset_url": "https://raw.githubusercontent.com/Avik-Jain/100-Days-Of-ML-Code/master/datasets/50_Startups.csv",
+  "n_rows": 50,
+  "n_train": 40,
+  "n_test": 10,
+  "target": "Profit",
+  "features": [
+   "R&D Spend",
+   "Administration",
+   "Marketing Spend",
+   "State_Florida",
+   "State_New York"
+  ],
+  "baseline_state": "California",
+  "split": "80/20, random_state=42, stratify=State",
+  "cv": "RepeatedKFold(n_splits=5, n_repeats=10, random_state=42)",
+  "generated_at": "2026-10-14T12:05:14+00:00",
+  "versions": {
+   "python": "3.14.3",
+   "scikit-learn": "1.9.1",
+   "statsmodels": "0.15.0",
+   "pandas": "3.0.6"
+  },
+  "input_defaults": {
+   "R&D Spend": 73051.08,
+   "Administration": 122699.795,
+   "Marketing Spend": 212716.24
+  },
+  "input_ranges": {
+   "R&D Spend": [
+    0.0,
+    165349.2
+   ],
+   "Administration": [
+    51283.14,
+    182645.56
+   ],
+   "Marketing Spend": [
+    0.0,
+    471784.1
+   ]
+  }
+ },
+ "global_best": {
+  "k": 2,
+  "features": [
+   "R&D Spend",
+   "Marketing Spend"
+  ],
+  "methods": [
+   "lasso",
+   "forward",
+   "rfe",
+   "elasticnet",
+   "exhaustive"
+  ],
+  "cv_rmse_mean": 9644.163229763997,
+  "cv_rmse_std": 2881.813438388677,
+  "test_rmse": 8941.700647189742
+ },
+ "methods": [
+  {
+   "id": "lasso",
+   "name": "Lasso",
+   "tag": "L1 Path",
+   "description": "標準化後計算 Lasso 係數路徑，依特徵進入模型（係數第一次非 0）的順序排序，取前 k 個。",
+   "best_k": 2,
+   "matches_benchmark_count": 5,
+   "matches_benchmark_all": true,
+   "results": {
+    "1": {
+     "features": [
+      "R&D Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 47340.895206521265,
+       "std_error": 3029.7136863918977,
+       "t_stat": 15.6255343266115,
+       "p_value": 3.939859553218671e-18,
+       "ci_low": 41207.56050146529,
+       "ci_high": 53474.22991157724,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8697213443665944,
+       "std_error": 0.03365688639908273,
+       "t_stat": 25.84081409236647,
+       "p_value": 1.0283544059446711e-25,
+       "ci_low": 0.8015865399648432,
+       "ci_high": 0.9378561487683457,
+       "vif": 1.0
+      }
+     ],
+     "train": {
+      "r2": 0.9461563934871722,
+      "adj_r2": 0.9447394564736767,
+      "f_stat": 667.7476729562455,
+      "f_pvalue": 1.0283544059446734e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9943.368985790796,
+      "rmse_std": 3173.867074211241,
+      "r2_mean": 0.9203272372569914,
+      "r2_std": 0.050784340984637036
+     },
+     "test": {
+      "rmse": 7530.2320384624945,
+      "r2": 0.9386976886430561,
+      "mae": 5891.228481437276,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 170934.68199568198,
+        "residual": -4746.7419956819795,
+        "pct_error": -2.8562493738606904
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 85669.47136668986,
+        "residual": 4279.668633310139,
+        "pct_error": 4.75787609899343
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 100512.50980982825,
+        "residual": -3028.9498098282493,
+        "pct_error": -3.1071391010220073
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 66629.34905433406,
+        "residual": -1429.0190543340577,
+        "pct_error": -2.1917359227078417
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 72349.14975048197,
+        "residual": 5890.760249518033,
+        "pct_error": 7.529098959237085
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 48210.81658679707,
+        "residual": 16715.263413202934,
+        "pct_error": 25.745067949894608
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 110054.41401756991,
+        "residual": -5046.104017569916,
+        "pct_error": -4.805433034366438
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.2020438112,
+        "residual": 12609.317956188796,
+        "pct_error": 8.905796268000286
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 103581.17372079723,
+        "residual": 3823.1662792027637,
+        "pct_error": 3.5596012965609805
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 111695.5434055359,
+        "residual": -1343.2934055358928,
+        "pct_error": -1.217277767817052
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "2": {
+     "features": [
+      "R&D Spend",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 44240.78110525249,
+       "std_error": 3150.087396443034,
+       "t_stat": 14.044302756554501,
+       "p_value": 2.1042173308436928e-16,
+       "ci_low": 37858.09776469663,
+       "ci_high": 50623.46444580836,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.7946222913248153,
+       "std_error": 0.045003319592492166,
+       "t_stat": 17.656970608394428,
+       "p_value": 1.2963896535671269e-19,
+       "ci_low": 0.7034369043552174,
+       "ci_high": 0.8858076782944132,
+       "vif": 2.0025488076081874
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.04108352567278528,
+       "std_error": 0.017419633083637427,
+       "t_stat": 2.3584610235778025,
+       "p_value": 0.023744629351646566,
+       "ci_low": 0.005787996409986604,
+       "ci_high": 0.07637905493558396,
+       "vif": 2.002548807608188
+      }
+     ],
+     "train": {
+      "r2": 0.9531930454040326,
+      "adj_r2": 0.9506629397501966,
+      "f_stat": 376.74041159460165,
+      "f_pvalue": 2.516182468262579e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9644.163229763997,
+      "rmse_std": 2881.813438388677,
+      "r2_mean": 0.9265100062114807,
+      "r2_std": 0.04326252274392574
+     },
+     "test": {
+      "rmse": 8941.700647189742,
+      "r2": 0.9135628608271458,
+      "mae": 7048.117217515106,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 172205.9309137603,
+        "residual": -6017.990913760295,
+        "pct_error": -3.621195926587871
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 87354.40898768653,
+        "residual": 2594.7310123134666,
+        "pct_error": 2.88466461415136
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 96445.42738116978,
+        "residual": 1038.1326188302191,
+        "pct_error": 1.0649309676731329
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 63027.79787700969,
+        "residual": 2172.532122990313,
+        "pct_error": 3.332087618253332
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 74188.66803995351,
+        "residual": 4051.2419600464927,
+        "pct_error": 5.177973696603808
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 45113.8063167385,
+        "residual": 19812.273683261505,
+        "pct_error": 30.515123788871136
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 116049.12356453287,
+        "residual": -11040.813564532873,
+        "pct_error": -10.51422841157321
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129091.29424990644,
+        "residual": 12494.225750093552,
+        "pct_error": 8.824508148921975
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 101292.79197396191,
+        "residual": 6111.548026038086,
+        "pct_error": 5.690224460238838
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115499.93252328425,
+        "residual": -5147.682523284253,
+        "pct_error": -4.664773507820867
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "3": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48954.88930168674,
+       "std_error": 7419.101491655233,
+       "t_stat": 6.5984930057567786,
+       "p_value": 1.1104723036657053e-07,
+       "ci_low": 33908.25407379565,
+       "ci_high": 64001.52452957782,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8092904581642872,
+       "std_error": 0.04988873345530177,
+       "t_stat": 16.221908276933465,
+       "p_value": 3.9309760644809476e-18,
+       "ci_low": 0.708111417127077,
+       "ci_high": 0.9104694992014974,
+       "vif": 2.4272756826983435
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04210973486979064,
+       "std_error": 0.059910709539702484,
+       "t_stat": -0.7028749149079058,
+       "p_value": 0.48665440765446727,
+       "ci_low": -0.16361428548174348,
+       "ci_high": 0.0793948157421622,
+       "vif": 1.2174257974256955
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03770244154530754,
+       "std_error": 0.018187640665300216,
+       "t_stat": 2.0729704440026224,
+       "p_value": 0.045391870411435546,
+       "ci_low": 0.0008161966200240858,
+       "ci_high": 0.074588686470591,
+       "vif": 2.153168275085275
+      }
+     ],
+     "train": {
+      "r2": 0.9538266883598968,
+      "adj_r2": 0.9499789123898882,
+      "f_stat": 247.8903906554011,
+      "f_pvalue": 4.348108677790726e-24,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9914.1061915156,
+      "rmse_std": 2857.1617914447093,
+      "r2_mean": 0.9228954579810881,
+      "r2_std": 0.042942719428934996
+     },
+     "test": {
+      "rmse": 9186.321442921024,
+      "r2": 0.9087687957162687,
+      "mae": 7288.975844299721,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 173917.9638456016,
+        "residual": -7730.023845601594,
+        "pct_error": -4.651374730080651
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89889.25009002945,
+        "residual": 59.88990997054498,
+        "pct_error": 0.06658197062311544
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95327.78357689022,
+        "residual": 2155.7764231097826,
+        "pct_error": 2.2114256220328663
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61452.565280222145,
+        "residual": 3747.764719777857,
+        "pct_error": 5.748076305408051
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73748.37011369015,
+        "residual": 4491.539886309853,
+        "pct_error": 5.740727317183586
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44608.097108509246,
+        "residual": 20317.982891490756,
+        "pct_error": 31.294023744373224
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 115242.43159434281,
+        "residual": -10234.12159434281,
+        "pct_error": -9.746011143635023
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.05598119623,
+        "residual": 12609.46401880376,
+        "pct_error": 8.90589943011387
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100612.4031327935,
+        "residual": 6791.936867206503,
+        "pct_error": 6.323708024467637
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115103.50828638375,
+        "residual": -4751.258286383745,
+        "pct_error": -4.3055382073167925
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "4": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48937.34103697141,
+       "std_error": 7522.193787454953,
+       "t_stat": 6.505727241245242,
+       "p_value": 1.6752044414325382e-07,
+       "ci_low": 33666.47579122364,
+       "ci_high": 64208.206282719184,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8107239764847969,
+       "std_error": 0.05132256068888737,
+       "t_stat": 15.796639247977724,
+       "p_value": 1.6885833537293613e-17,
+       "ci_low": 0.7065336391321773,
+       "ci_high": 0.9149143138374165,
+       "vif": 2.499377032669314
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.0432799403923414,
+       "std_error": 0.06115250047946639,
+       "t_stat": -0.7077378693104105,
+       "p_value": 0.48379462363818587,
+       "ci_low": -0.167426116448039,
+       "ci_high": 0.08086623566335621,
+       "vif": 1.234135958234787
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03711600044046419,
+       "std_error": 0.01878018396610488,
+       "t_stat": 1.9763384910101212,
+       "p_value": 0.056039349941943505,
+       "ci_low": -0.0010097999231252971,
+       "ci_high": 0.07524180080405368,
+       "vif": 2.2337055277255082
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 541.6310701348193,
+       "std_error": 3293.551512370176,
+       "t_stat": 0.16445198081782517,
+       "p_value": 0.8703214306277314,
+       "ci_low": -6144.633967228783,
+       "ci_high": 7227.896107498422,
+       "vif": 1.042642490731318
+      }
+     ],
+     "train": {
+      "r2": 0.9538623388700072,
+      "adj_r2": 0.9485894633122937,
+      "f_stat": 180.8998388886008,
+      "f_pvalue": 7.392034710419369e-23,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10210.686213652072,
+      "rmse_std": 2740.374133475925,
+      "r2_mean": 0.9184043726392592,
+      "r2_std": 0.043209990000010835
+     },
+     "test": {
+      "rmse": 9230.184548183652,
+      "r2": 0.9078954891118884,
+      "mae": 7399.216484249986,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174324.07675963675,
+        "residual": -8136.136759636749,
+        "pct_error": -4.895744396155791
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89759.3189416299,
+        "residual": 189.82105837010022,
+        "pct_error": 0.2110315433478299
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95167.4480065979,
+        "residual": 2316.111993402097,
+        "pct_error": 2.3759000937205177
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61269.03756764932,
+        "residual": 3931.2924323506813,
+        "pct_error": 6.029559102462643
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73531.98398181028,
+        "residual": 4707.926018189726,
+        "pct_error": 6.017294777294255
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44445.581575961434,
+        "residual": 20480.498424038567,
+        "pct_error": 31.54433229919097
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114971.50158897782,
+        "residual": -9963.191588977817,
+        "pct_error": -9.488002986599648
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129339.18706283616,
+        "residual": 12246.332937163825,
+        "pct_error": 8.649424699053847
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100443.34008473232,
+        "residual": 6960.9999152676755,
+        "pct_error": 6.481116047328885
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115412.10371510262,
+        "residual": -5059.853715102625,
+        "pct_error": -4.585184004043982
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "5": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida",
+      "State_New York"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 49049.74837646957,
+       "std_error": 7985.345593653788,
+       "t_stat": 6.142470329080183,
+       "p_value": 5.629288974534754e-07,
+       "ci_low": 32821.573638762224,
+       "ci_high": 65277.92311417692,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8109690420004065,
+       "std_error": 0.05232150834006811,
+       "t_stat": 15.499725977497516,
+       "p_value": 5.583877665635225e-17,
+       "ci_low": 0.7046389439570819,
+       "ci_high": 0.9172991400437311,
+       "vif": 2.523572296662442
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04355931570591648,
+       "std_error": 0.062317483290611236,
+       "t_stat": -0.6989902898161346,
+       "p_value": 0.4893124310509501,
+       "ci_low": -0.17020367895775984,
+       "ci_high": 0.08308504754592688,
+       "vif": 1.245072033090096
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.0370947899005421,
+       "std_error": 0.01905887936090062,
+       "t_stat": 1.946325867230276,
+       "p_value": 0.059917640072473584,
+       "ci_low": -0.0016375130343969715,
+       "ci_high": 0.07582709283548117,
+       "vif": 2.234915235360452
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 450.2064920230914,
+       "std_error": 3849.501851490646,
+       "t_stat": 0.11695188348818629,
+       "p_value": 0.907586305575453,
+       "ci_low": -7372.922509277166,
+       "ci_high": 8273.33549332335,
+       "vif": 1.3837437239033665
+      },
+      {
+       "name": "State_New York",
+       "estimate": -180.19383532685606,
+       "std_error": 3766.997306965107,
+       "t_stat": -0.04783487235142989,
+       "p_value": 0.9621277302159837,
+       "ci_low": -7835.653429021327,
+       "ci_high": 7475.265758367615,
+       "vif": 1.3741415925483325
+      }
+     ],
+     "train": {
+      "r2": 0.9538654436917416,
+      "adj_r2": 0.9470809501169978,
+      "f_stat": 140.59493655394195,
+      "f_pvalue": 1.0655748119689368e-21,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10539.902410305362,
+      "rmse_std": 2931.328726251455,
+      "r2_mean": 0.913738817357668,
+      "r2_std": 0.044717310847078647
+     },
+     "test": {
+      "rmse": 9232.955617841004,
+      "r2": 0.9078401779041556,
+      "mae": 7376.850877896648,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174346.58589527966,
+        "residual": -8158.645895279653,
+        "pct_error": -4.90928878189335
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89864.01996245034,
+        "residual": 85.12003754965554,
+        "pct_error": 0.09463129669683949
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95070.11162618364,
+        "residual": 2413.4483738163544,
+        "pct_error": 2.4757491148418813
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61343.02989782006,
+        "residual": 3857.3001021799428,
+        "pct_error": 5.9160745078743355
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73614.65408666717,
+        "residual": 4625.255913332832,
+        "pct_error": 5.911632456290954
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44343.314524148846,
+        "residual": 20582.765475851156,
+        "pct_error": 31.701845353748688
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114878.17276126926,
+        "residual": -9869.862761269265,
+        "pct_error": -9.399125422806314
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129342.30319201016,
+        "residual": 12243.216807989826,
+        "pct_error": 8.647223817795652
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100529.68054523374,
+        "residual": 6874.6594547662535,
+        "pct_error": 6.400727805567498
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115410.48395693155,
+        "residual": -5058.233956931552,
+        "pct_error": -4.583716196934409
+       }
+      ]
+     },
+     "matches_benchmark": true
+    }
+   },
+   "path_order": [
+    {
+     "feature": "R&D Spend",
+     "entry_alpha": 39551.95967552216
+    },
+    {
+     "feature": "Marketing Spend",
+     "entry_alpha": 8062.640868649959
+    },
+    {
+     "feature": "Administration",
+     "entry_alpha": 725.155707543784
+    },
+    {
+     "feature": "State_Florida",
+     "entry_alpha": 208.87705180964483
+    },
+    {
+     "feature": "State_New York",
+     "entry_alpha": 88.00662241802932
+    }
+   ]
+  },
+  {
+   "id": "forward",
+   "name": "Forward SFS",
+   "tag": "Greedy",
+   "description": "SequentialFeatureSelector（direction='forward'），每一步加入讓 CV RMSE 最低的特徵。",
+   "best_k": 2,
+   "matches_benchmark_count": 5,
+   "matches_benchmark_all": true,
+   "results": {
+    "1": {
+     "features": [
+      "R&D Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 47340.895206521265,
+       "std_error": 3029.7136863918977,
+       "t_stat": 15.6255343266115,
+       "p_value": 3.939859553218671e-18,
+       "ci_low": 41207.56050146529,
+       "ci_high": 53474.22991157724,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8697213443665944,
+       "std_error": 0.03365688639908273,
+       "t_stat": 25.84081409236647,
+       "p_value": 1.0283544059446711e-25,
+       "ci_low": 0.8015865399648432,
+       "ci_high": 0.9378561487683457,
+       "vif": 1.0
+      }
+     ],
+     "train": {
+      "r2": 0.9461563934871722,
+      "adj_r2": 0.9447394564736767,
+      "f_stat": 667.7476729562455,
+      "f_pvalue": 1.0283544059446734e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9943.368985790796,
+      "rmse_std": 3173.867074211241,
+      "r2_mean": 0.9203272372569914,
+      "r2_std": 0.050784340984637036
+     },
+     "test": {
+      "rmse": 7530.2320384624945,
+      "r2": 0.9386976886430561,
+      "mae": 5891.228481437276,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 170934.68199568198,
+        "residual": -4746.7419956819795,
+        "pct_error": -2.8562493738606904
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 85669.47136668986,
+        "residual": 4279.668633310139,
+        "pct_error": 4.75787609899343
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 100512.50980982825,
+        "residual": -3028.9498098282493,
+        "pct_error": -3.1071391010220073
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 66629.34905433406,
+        "residual": -1429.0190543340577,
+        "pct_error": -2.1917359227078417
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 72349.14975048197,
+        "residual": 5890.760249518033,
+        "pct_error": 7.529098959237085
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 48210.81658679707,
+        "residual": 16715.263413202934,
+        "pct_error": 25.745067949894608
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 110054.41401756991,
+        "residual": -5046.104017569916,
+        "pct_error": -4.805433034366438
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.2020438112,
+        "residual": 12609.317956188796,
+        "pct_error": 8.905796268000286
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 103581.17372079723,
+        "residual": 3823.1662792027637,
+        "pct_error": 3.5596012965609805
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 111695.5434055359,
+        "residual": -1343.2934055358928,
+        "pct_error": -1.217277767817052
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "2": {
+     "features": [
+      "R&D Spend",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 44240.78110525249,
+       "std_error": 3150.087396443034,
+       "t_stat": 14.044302756554501,
+       "p_value": 2.1042173308436928e-16,
+       "ci_low": 37858.09776469663,
+       "ci_high": 50623.46444580836,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.7946222913248153,
+       "std_error": 0.045003319592492166,
+       "t_stat": 17.656970608394428,
+       "p_value": 1.2963896535671269e-19,
+       "ci_low": 0.7034369043552174,
+       "ci_high": 0.8858076782944132,
+       "vif": 2.0025488076081874
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.04108352567278528,
+       "std_error": 0.017419633083637427,
+       "t_stat": 2.3584610235778025,
+       "p_value": 0.023744629351646566,
+       "ci_low": 0.005787996409986604,
+       "ci_high": 0.07637905493558396,
+       "vif": 2.002548807608188
+      }
+     ],
+     "train": {
+      "r2": 0.9531930454040326,
+      "adj_r2": 0.9506629397501966,
+      "f_stat": 376.74041159460165,
+      "f_pvalue": 2.516182468262579e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9644.163229763997,
+      "rmse_std": 2881.813438388677,
+      "r2_mean": 0.9265100062114807,
+      "r2_std": 0.04326252274392574
+     },
+     "test": {
+      "rmse": 8941.700647189742,
+      "r2": 0.9135628608271458,
+      "mae": 7048.117217515106,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 172205.9309137603,
+        "residual": -6017.990913760295,
+        "pct_error": -3.621195926587871
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 87354.40898768653,
+        "residual": 2594.7310123134666,
+        "pct_error": 2.88466461415136
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 96445.42738116978,
+        "residual": 1038.1326188302191,
+        "pct_error": 1.0649309676731329
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 63027.79787700969,
+        "residual": 2172.532122990313,
+        "pct_error": 3.332087618253332
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 74188.66803995351,
+        "residual": 4051.2419600464927,
+        "pct_error": 5.177973696603808
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 45113.8063167385,
+        "residual": 19812.273683261505,
+        "pct_error": 30.515123788871136
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 116049.12356453287,
+        "residual": -11040.813564532873,
+        "pct_error": -10.51422841157321
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129091.29424990644,
+        "residual": 12494.225750093552,
+        "pct_error": 8.824508148921975
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 101292.79197396191,
+        "residual": 6111.548026038086,
+        "pct_error": 5.690224460238838
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115499.93252328425,
+        "residual": -5147.682523284253,
+        "pct_error": -4.664773507820867
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "3": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48954.88930168674,
+       "std_error": 7419.101491655233,
+       "t_stat": 6.5984930057567786,
+       "p_value": 1.1104723036657053e-07,
+       "ci_low": 33908.25407379565,
+       "ci_high": 64001.52452957782,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8092904581642872,
+       "std_error": 0.04988873345530177,
+       "t_stat": 16.221908276933465,
+       "p_value": 3.9309760644809476e-18,
+       "ci_low": 0.708111417127077,
+       "ci_high": 0.9104694992014974,
+       "vif": 2.4272756826983435
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04210973486979064,
+       "std_error": 0.059910709539702484,
+       "t_stat": -0.7028749149079058,
+       "p_value": 0.48665440765446727,
+       "ci_low": -0.16361428548174348,
+       "ci_high": 0.0793948157421622,
+       "vif": 1.2174257974256955
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03770244154530754,
+       "std_error": 0.018187640665300216,
+       "t_stat": 2.0729704440026224,
+       "p_value": 0.045391870411435546,
+       "ci_low": 0.0008161966200240858,
+       "ci_high": 0.074588686470591,
+       "vif": 2.153168275085275
+      }
+     ],
+     "train": {
+      "r2": 0.9538266883598968,
+      "adj_r2": 0.9499789123898882,
+      "f_stat": 247.8903906554011,
+      "f_pvalue": 4.348108677790726e-24,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9914.1061915156,
+      "rmse_std": 2857.1617914447093,
+      "r2_mean": 0.9228954579810881,
+      "r2_std": 0.042942719428934996
+     },
+     "test": {
+      "rmse": 9186.321442921024,
+      "r2": 0.9087687957162687,
+      "mae": 7288.975844299721,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 173917.9638456016,
+        "residual": -7730.023845601594,
+        "pct_error": -4.651374730080651
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89889.25009002945,
+        "residual": 59.88990997054498,
+        "pct_error": 0.06658197062311544
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95327.78357689022,
+        "residual": 2155.7764231097826,
+        "pct_error": 2.2114256220328663
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61452.565280222145,
+        "residual": 3747.764719777857,
+        "pct_error": 5.748076305408051
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73748.37011369015,
+        "residual": 4491.539886309853,
+        "pct_error": 5.740727317183586
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44608.097108509246,
+        "residual": 20317.982891490756,
+        "pct_error": 31.294023744373224
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 115242.43159434281,
+        "residual": -10234.12159434281,
+        "pct_error": -9.746011143635023
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.05598119623,
+        "residual": 12609.46401880376,
+        "pct_error": 8.90589943011387
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100612.4031327935,
+        "residual": 6791.936867206503,
+        "pct_error": 6.323708024467637
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115103.50828638375,
+        "residual": -4751.258286383745,
+        "pct_error": -4.3055382073167925
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "4": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48937.34103697141,
+       "std_error": 7522.193787454953,
+       "t_stat": 6.505727241245242,
+       "p_value": 1.6752044414325382e-07,
+       "ci_low": 33666.47579122364,
+       "ci_high": 64208.206282719184,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8107239764847969,
+       "std_error": 0.05132256068888737,
+       "t_stat": 15.796639247977724,
+       "p_value": 1.6885833537293613e-17,
+       "ci_low": 0.7065336391321773,
+       "ci_high": 0.9149143138374165,
+       "vif": 2.499377032669314
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.0432799403923414,
+       "std_error": 0.06115250047946639,
+       "t_stat": -0.7077378693104105,
+       "p_value": 0.48379462363818587,
+       "ci_low": -0.167426116448039,
+       "ci_high": 0.08086623566335621,
+       "vif": 1.234135958234787
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03711600044046419,
+       "std_error": 0.01878018396610488,
+       "t_stat": 1.9763384910101212,
+       "p_value": 0.056039349941943505,
+       "ci_low": -0.0010097999231252971,
+       "ci_high": 0.07524180080405368,
+       "vif": 2.2337055277255082
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 541.6310701348193,
+       "std_error": 3293.551512370176,
+       "t_stat": 0.16445198081782517,
+       "p_value": 0.8703214306277314,
+       "ci_low": -6144.633967228783,
+       "ci_high": 7227.896107498422,
+       "vif": 1.042642490731318
+      }
+     ],
+     "train": {
+      "r2": 0.9538623388700072,
+      "adj_r2": 0.9485894633122937,
+      "f_stat": 180.8998388886008,
+      "f_pvalue": 7.392034710419369e-23,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10210.686213652072,
+      "rmse_std": 2740.374133475925,
+      "r2_mean": 0.9184043726392592,
+      "r2_std": 0.043209990000010835
+     },
+     "test": {
+      "rmse": 9230.184548183652,
+      "r2": 0.9078954891118884,
+      "mae": 7399.216484249986,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174324.07675963675,
+        "residual": -8136.136759636749,
+        "pct_error": -4.895744396155791
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89759.3189416299,
+        "residual": 189.82105837010022,
+        "pct_error": 0.2110315433478299
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95167.4480065979,
+        "residual": 2316.111993402097,
+        "pct_error": 2.3759000937205177
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61269.03756764932,
+        "residual": 3931.2924323506813,
+        "pct_error": 6.029559102462643
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73531.98398181028,
+        "residual": 4707.926018189726,
+        "pct_error": 6.017294777294255
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44445.581575961434,
+        "residual": 20480.498424038567,
+        "pct_error": 31.54433229919097
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114971.50158897782,
+        "residual": -9963.191588977817,
+        "pct_error": -9.488002986599648
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129339.18706283616,
+        "residual": 12246.332937163825,
+        "pct_error": 8.649424699053847
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100443.34008473232,
+        "residual": 6960.9999152676755,
+        "pct_error": 6.481116047328885
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115412.10371510262,
+        "residual": -5059.853715102625,
+        "pct_error": -4.585184004043982
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "5": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida",
+      "State_New York"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 49049.74837646957,
+       "std_error": 7985.345593653788,
+       "t_stat": 6.142470329080183,
+       "p_value": 5.629288974534754e-07,
+       "ci_low": 32821.573638762224,
+       "ci_high": 65277.92311417692,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8109690420004065,
+       "std_error": 0.05232150834006811,
+       "t_stat": 15.499725977497516,
+       "p_value": 5.583877665635225e-17,
+       "ci_low": 0.7046389439570819,
+       "ci_high": 0.9172991400437311,
+       "vif": 2.523572296662442
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04355931570591648,
+       "std_error": 0.062317483290611236,
+       "t_stat": -0.6989902898161346,
+       "p_value": 0.4893124310509501,
+       "ci_low": -0.17020367895775984,
+       "ci_high": 0.08308504754592688,
+       "vif": 1.245072033090096
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.0370947899005421,
+       "std_error": 0.01905887936090062,
+       "t_stat": 1.946325867230276,
+       "p_value": 0.059917640072473584,
+       "ci_low": -0.0016375130343969715,
+       "ci_high": 0.07582709283548117,
+       "vif": 2.234915235360452
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 450.2064920230914,
+       "std_error": 3849.501851490646,
+       "t_stat": 0.11695188348818629,
+       "p_value": 0.907586305575453,
+       "ci_low": -7372.922509277166,
+       "ci_high": 8273.33549332335,
+       "vif": 1.3837437239033665
+      },
+      {
+       "name": "State_New York",
+       "estimate": -180.19383532685606,
+       "std_error": 3766.997306965107,
+       "t_stat": -0.04783487235142989,
+       "p_value": 0.9621277302159837,
+       "ci_low": -7835.653429021327,
+       "ci_high": 7475.265758367615,
+       "vif": 1.3741415925483325
+      }
+     ],
+     "train": {
+      "r2": 0.9538654436917416,
+      "adj_r2": 0.9470809501169978,
+      "f_stat": 140.59493655394195,
+      "f_pvalue": 1.0655748119689368e-21,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10539.902410305362,
+      "rmse_std": 2931.328726251455,
+      "r2_mean": 0.913738817357668,
+      "r2_std": 0.044717310847078647
+     },
+     "test": {
+      "rmse": 9232.955617841004,
+      "r2": 0.9078401779041556,
+      "mae": 7376.850877896648,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174346.58589527966,
+        "residual": -8158.645895279653,
+        "pct_error": -4.90928878189335
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89864.01996245034,
+        "residual": 85.12003754965554,
+        "pct_error": 0.09463129669683949
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95070.11162618364,
+        "residual": 2413.4483738163544,
+        "pct_error": 2.4757491148418813
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61343.02989782006,
+        "residual": 3857.3001021799428,
+        "pct_error": 5.9160745078743355
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73614.65408666717,
+        "residual": 4625.255913332832,
+        "pct_error": 5.911632456290954
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44343.314524148846,
+        "residual": 20582.765475851156,
+        "pct_error": 31.701845353748688
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114878.17276126926,
+        "residual": -9869.862761269265,
+        "pct_error": -9.399125422806314
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129342.30319201016,
+        "residual": 12243.216807989826,
+        "pct_error": 8.647223817795652
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100529.68054523374,
+        "residual": 6874.6594547662535,
+        "pct_error": 6.400727805567498
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115410.48395693155,
+        "residual": -5058.233956931552,
+        "pct_error": -4.583716196934409
+       }
+      ]
+     },
+     "matches_benchmark": true
+    }
+   }
+  },
+  {
+   "id": "rfe",
+   "name": "RFE",
+   "tag": "Backward",
+   "description": "Recursive Feature Elimination：標準化後反覆移除 |係數| 最小的特徵，直到剩 k 個。",
+   "best_k": 2,
+   "matches_benchmark_count": 5,
+   "matches_benchmark_all": true,
+   "results": {
+    "1": {
+     "features": [
+      "R&D Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 47340.895206521265,
+       "std_error": 3029.7136863918977,
+       "t_stat": 15.6255343266115,
+       "p_value": 3.939859553218671e-18,
+       "ci_low": 41207.56050146529,
+       "ci_high": 53474.22991157724,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8697213443665944,
+       "std_error": 0.03365688639908273,
+       "t_stat": 25.84081409236647,
+       "p_value": 1.0283544059446711e-25,
+       "ci_low": 0.8015865399648432,
+       "ci_high": 0.9378561487683457,
+       "vif": 1.0
+      }
+     ],
+     "train": {
+      "r2": 0.9461563934871722,
+      "adj_r2": 0.9447394564736767,
+      "f_stat": 667.7476729562455,
+      "f_pvalue": 1.0283544059446734e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9943.368985790796,
+      "rmse_std": 3173.867074211241,
+      "r2_mean": 0.9203272372569914,
+      "r2_std": 0.050784340984637036
+     },
+     "test": {
+      "rmse": 7530.2320384624945,
+      "r2": 0.9386976886430561,
+      "mae": 5891.228481437276,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 170934.68199568198,
+        "residual": -4746.7419956819795,
+        "pct_error": -2.8562493738606904
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 85669.47136668986,
+        "residual": 4279.668633310139,
+        "pct_error": 4.75787609899343
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 100512.50980982825,
+        "residual": -3028.9498098282493,
+        "pct_error": -3.1071391010220073
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 66629.34905433406,
+        "residual": -1429.0190543340577,
+        "pct_error": -2.1917359227078417
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 72349.14975048197,
+        "residual": 5890.760249518033,
+        "pct_error": 7.529098959237085
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 48210.81658679707,
+        "residual": 16715.263413202934,
+        "pct_error": 25.745067949894608
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 110054.41401756991,
+        "residual": -5046.104017569916,
+        "pct_error": -4.805433034366438
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.2020438112,
+        "residual": 12609.317956188796,
+        "pct_error": 8.905796268000286
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 103581.17372079723,
+        "residual": 3823.1662792027637,
+        "pct_error": 3.5596012965609805
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 111695.5434055359,
+        "residual": -1343.2934055358928,
+        "pct_error": -1.217277767817052
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "2": {
+     "features": [
+      "R&D Spend",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 44240.78110525249,
+       "std_error": 3150.087396443034,
+       "t_stat": 14.044302756554501,
+       "p_value": 2.1042173308436928e-16,
+       "ci_low": 37858.09776469663,
+       "ci_high": 50623.46444580836,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.7946222913248153,
+       "std_error": 0.045003319592492166,
+       "t_stat": 17.656970608394428,
+       "p_value": 1.2963896535671269e-19,
+       "ci_low": 0.7034369043552174,
+       "ci_high": 0.8858076782944132,
+       "vif": 2.0025488076081874
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.04108352567278528,
+       "std_error": 0.017419633083637427,
+       "t_stat": 2.3584610235778025,
+       "p_value": 0.023744629351646566,
+       "ci_low": 0.005787996409986604,
+       "ci_high": 0.07637905493558396,
+       "vif": 2.002548807608188
+      }
+     ],
+     "train": {
+      "r2": 0.9531930454040326,
+      "adj_r2": 0.9506629397501966,
+      "f_stat": 376.74041159460165,
+      "f_pvalue": 2.516182468262579e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9644.163229763997,
+      "rmse_std": 2881.813438388677,
+      "r2_mean": 0.9265100062114807,
+      "r2_std": 0.04326252274392574
+     },
+     "test": {
+      "rmse": 8941.700647189742,
+      "r2": 0.9135628608271458,
+      "mae": 7048.117217515106,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 172205.9309137603,
+        "residual": -6017.990913760295,
+        "pct_error": -3.621195926587871
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 87354.40898768653,
+        "residual": 2594.7310123134666,
+        "pct_error": 2.88466461415136
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 96445.42738116978,
+        "residual": 1038.1326188302191,
+        "pct_error": 1.0649309676731329
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 63027.79787700969,
+        "residual": 2172.532122990313,
+        "pct_error": 3.332087618253332
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 74188.66803995351,
+        "residual": 4051.2419600464927,
+        "pct_error": 5.177973696603808
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 45113.8063167385,
+        "residual": 19812.273683261505,
+        "pct_error": 30.515123788871136
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 116049.12356453287,
+        "residual": -11040.813564532873,
+        "pct_error": -10.51422841157321
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129091.29424990644,
+        "residual": 12494.225750093552,
+        "pct_error": 8.824508148921975
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 101292.79197396191,
+        "residual": 6111.548026038086,
+        "pct_error": 5.690224460238838
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115499.93252328425,
+        "residual": -5147.682523284253,
+        "pct_error": -4.664773507820867
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "3": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48954.88930168674,
+       "std_error": 7419.101491655233,
+       "t_stat": 6.5984930057567786,
+       "p_value": 1.1104723036657053e-07,
+       "ci_low": 33908.25407379565,
+       "ci_high": 64001.52452957782,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8092904581642872,
+       "std_error": 0.04988873345530177,
+       "t_stat": 16.221908276933465,
+       "p_value": 3.9309760644809476e-18,
+       "ci_low": 0.708111417127077,
+       "ci_high": 0.9104694992014974,
+       "vif": 2.4272756826983435
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04210973486979064,
+       "std_error": 0.059910709539702484,
+       "t_stat": -0.7028749149079058,
+       "p_value": 0.48665440765446727,
+       "ci_low": -0.16361428548174348,
+       "ci_high": 0.0793948157421622,
+       "vif": 1.2174257974256955
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03770244154530754,
+       "std_error": 0.018187640665300216,
+       "t_stat": 2.0729704440026224,
+       "p_value": 0.045391870411435546,
+       "ci_low": 0.0008161966200240858,
+       "ci_high": 0.074588686470591,
+       "vif": 2.153168275085275
+      }
+     ],
+     "train": {
+      "r2": 0.9538266883598968,
+      "adj_r2": 0.9499789123898882,
+      "f_stat": 247.8903906554011,
+      "f_pvalue": 4.348108677790726e-24,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9914.1061915156,
+      "rmse_std": 2857.1617914447093,
+      "r2_mean": 0.9228954579810881,
+      "r2_std": 0.042942719428934996
+     },
+     "test": {
+      "rmse": 9186.321442921024,
+      "r2": 0.9087687957162687,
+      "mae": 7288.975844299721,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 173917.9638456016,
+        "residual": -7730.023845601594,
+        "pct_error": -4.651374730080651
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89889.25009002945,
+        "residual": 59.88990997054498,
+        "pct_error": 0.06658197062311544
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95327.78357689022,
+        "residual": 2155.7764231097826,
+        "pct_error": 2.2114256220328663
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61452.565280222145,
+        "residual": 3747.764719777857,
+        "pct_error": 5.748076305408051
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73748.37011369015,
+        "residual": 4491.539886309853,
+        "pct_error": 5.740727317183586
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44608.097108509246,
+        "residual": 20317.982891490756,
+        "pct_error": 31.294023744373224
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 115242.43159434281,
+        "residual": -10234.12159434281,
+        "pct_error": -9.746011143635023
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.05598119623,
+        "residual": 12609.46401880376,
+        "pct_error": 8.90589943011387
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100612.4031327935,
+        "residual": 6791.936867206503,
+        "pct_error": 6.323708024467637
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115103.50828638375,
+        "residual": -4751.258286383745,
+        "pct_error": -4.3055382073167925
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "4": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48937.34103697141,
+       "std_error": 7522.193787454953,
+       "t_stat": 6.505727241245242,
+       "p_value": 1.6752044414325382e-07,
+       "ci_low": 33666.47579122364,
+       "ci_high": 64208.206282719184,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8107239764847969,
+       "std_error": 0.05132256068888737,
+       "t_stat": 15.796639247977724,
+       "p_value": 1.6885833537293613e-17,
+       "ci_low": 0.7065336391321773,
+       "ci_high": 0.9149143138374165,
+       "vif": 2.499377032669314
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.0432799403923414,
+       "std_error": 0.06115250047946639,
+       "t_stat": -0.7077378693104105,
+       "p_value": 0.48379462363818587,
+       "ci_low": -0.167426116448039,
+       "ci_high": 0.08086623566335621,
+       "vif": 1.234135958234787
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03711600044046419,
+       "std_error": 0.01878018396610488,
+       "t_stat": 1.9763384910101212,
+       "p_value": 0.056039349941943505,
+       "ci_low": -0.0010097999231252971,
+       "ci_high": 0.07524180080405368,
+       "vif": 2.2337055277255082
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 541.6310701348193,
+       "std_error": 3293.551512370176,
+       "t_stat": 0.16445198081782517,
+       "p_value": 0.8703214306277314,
+       "ci_low": -6144.633967228783,
+       "ci_high": 7227.896107498422,
+       "vif": 1.042642490731318
+      }
+     ],
+     "train": {
+      "r2": 0.9538623388700072,
+      "adj_r2": 0.9485894633122937,
+      "f_stat": 180.8998388886008,
+      "f_pvalue": 7.392034710419369e-23,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10210.686213652072,
+      "rmse_std": 2740.374133475925,
+      "r2_mean": 0.9184043726392592,
+      "r2_std": 0.043209990000010835
+     },
+     "test": {
+      "rmse": 9230.184548183652,
+      "r2": 0.9078954891118884,
+      "mae": 7399.216484249986,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174324.07675963675,
+        "residual": -8136.136759636749,
+        "pct_error": -4.895744396155791
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89759.3189416299,
+        "residual": 189.82105837010022,
+        "pct_error": 0.2110315433478299
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95167.4480065979,
+        "residual": 2316.111993402097,
+        "pct_error": 2.3759000937205177
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61269.03756764932,
+        "residual": 3931.2924323506813,
+        "pct_error": 6.029559102462643
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73531.98398181028,
+        "residual": 4707.926018189726,
+        "pct_error": 6.017294777294255
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44445.581575961434,
+        "residual": 20480.498424038567,
+        "pct_error": 31.54433229919097
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114971.50158897782,
+        "residual": -9963.191588977817,
+        "pct_error": -9.488002986599648
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129339.18706283616,
+        "residual": 12246.332937163825,
+        "pct_error": 8.649424699053847
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100443.34008473232,
+        "residual": 6960.9999152676755,
+        "pct_error": 6.481116047328885
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115412.10371510262,
+        "residual": -5059.853715102625,
+        "pct_error": -4.585184004043982
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "5": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida",
+      "State_New York"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 49049.74837646957,
+       "std_error": 7985.345593653788,
+       "t_stat": 6.142470329080183,
+       "p_value": 5.629288974534754e-07,
+       "ci_low": 32821.573638762224,
+       "ci_high": 65277.92311417692,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8109690420004065,
+       "std_error": 0.05232150834006811,
+       "t_stat": 15.499725977497516,
+       "p_value": 5.583877665635225e-17,
+       "ci_low": 0.7046389439570819,
+       "ci_high": 0.9172991400437311,
+       "vif": 2.523572296662442
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04355931570591648,
+       "std_error": 0.062317483290611236,
+       "t_stat": -0.6989902898161346,
+       "p_value": 0.4893124310509501,
+       "ci_low": -0.17020367895775984,
+       "ci_high": 0.08308504754592688,
+       "vif": 1.245072033090096
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.0370947899005421,
+       "std_error": 0.01905887936090062,
+       "t_stat": 1.946325867230276,
+       "p_value": 0.059917640072473584,
+       "ci_low": -0.0016375130343969715,
+       "ci_high": 0.07582709283548117,
+       "vif": 2.234915235360452
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 450.2064920230914,
+       "std_error": 3849.501851490646,
+       "t_stat": 0.11695188348818629,
+       "p_value": 0.907586305575453,
+       "ci_low": -7372.922509277166,
+       "ci_high": 8273.33549332335,
+       "vif": 1.3837437239033665
+      },
+      {
+       "name": "State_New York",
+       "estimate": -180.19383532685606,
+       "std_error": 3766.997306965107,
+       "t_stat": -0.04783487235142989,
+       "p_value": 0.9621277302159837,
+       "ci_low": -7835.653429021327,
+       "ci_high": 7475.265758367615,
+       "vif": 1.3741415925483325
+      }
+     ],
+     "train": {
+      "r2": 0.9538654436917416,
+      "adj_r2": 0.9470809501169978,
+      "f_stat": 140.59493655394195,
+      "f_pvalue": 1.0655748119689368e-21,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10539.902410305362,
+      "rmse_std": 2931.328726251455,
+      "r2_mean": 0.913738817357668,
+      "r2_std": 0.044717310847078647
+     },
+     "test": {
+      "rmse": 9232.955617841004,
+      "r2": 0.9078401779041556,
+      "mae": 7376.850877896648,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174346.58589527966,
+        "residual": -8158.645895279653,
+        "pct_error": -4.90928878189335
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89864.01996245034,
+        "residual": 85.12003754965554,
+        "pct_error": 0.09463129669683949
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95070.11162618364,
+        "residual": 2413.4483738163544,
+        "pct_error": 2.4757491148418813
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61343.02989782006,
+        "residual": 3857.3001021799428,
+        "pct_error": 5.9160745078743355
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73614.65408666717,
+        "residual": 4625.255913332832,
+        "pct_error": 5.911632456290954
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44343.314524148846,
+        "residual": 20582.765475851156,
+        "pct_error": 31.701845353748688
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114878.17276126926,
+        "residual": -9869.862761269265,
+        "pct_error": -9.399125422806314
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129342.30319201016,
+        "residual": 12243.216807989826,
+        "pct_error": 8.647223817795652
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100529.68054523374,
+        "residual": 6874.6594547662535,
+        "pct_error": 6.400727805567498
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115410.48395693155,
+        "residual": -5058.233956931552,
+        "pct_error": -4.583716196934409
+       }
+      ]
+     },
+     "matches_benchmark": true
+    }
+   }
+  },
+  {
+   "id": "elasticnet",
+   "name": "ElasticNet",
+   "tag": "L1 + L2",
+   "description": "標準化後計算 ElasticNet（l1_ratio=0.5）係數路徑，依特徵進入順序排序，取前 k 個。",
+   "best_k": 2,
+   "matches_benchmark_count": 4,
+   "matches_benchmark_all": false,
+   "results": {
+    "1": {
+     "features": [
+      "R&D Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 47340.895206521265,
+       "std_error": 3029.7136863918977,
+       "t_stat": 15.6255343266115,
+       "p_value": 3.939859553218671e-18,
+       "ci_low": 41207.56050146529,
+       "ci_high": 53474.22991157724,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8697213443665944,
+       "std_error": 0.03365688639908273,
+       "t_stat": 25.84081409236647,
+       "p_value": 1.0283544059446711e-25,
+       "ci_low": 0.8015865399648432,
+       "ci_high": 0.9378561487683457,
+       "vif": 1.0
+      }
+     ],
+     "train": {
+      "r2": 0.9461563934871722,
+      "adj_r2": 0.9447394564736767,
+      "f_stat": 667.7476729562455,
+      "f_pvalue": 1.0283544059446734e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9943.368985790796,
+      "rmse_std": 3173.867074211241,
+      "r2_mean": 0.9203272372569914,
+      "r2_std": 0.050784340984637036
+     },
+     "test": {
+      "rmse": 7530.2320384624945,
+      "r2": 0.9386976886430561,
+      "mae": 5891.228481437276,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 170934.68199568198,
+        "residual": -4746.7419956819795,
+        "pct_error": -2.8562493738606904
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 85669.47136668986,
+        "residual": 4279.668633310139,
+        "pct_error": 4.75787609899343
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 100512.50980982825,
+        "residual": -3028.9498098282493,
+        "pct_error": -3.1071391010220073
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 66629.34905433406,
+        "residual": -1429.0190543340577,
+        "pct_error": -2.1917359227078417
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 72349.14975048197,
+        "residual": 5890.760249518033,
+        "pct_error": 7.529098959237085
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 48210.81658679707,
+        "residual": 16715.263413202934,
+        "pct_error": 25.745067949894608
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 110054.41401756991,
+        "residual": -5046.104017569916,
+        "pct_error": -4.805433034366438
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.2020438112,
+        "residual": 12609.317956188796,
+        "pct_error": 8.905796268000286
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 103581.17372079723,
+        "residual": 3823.1662792027637,
+        "pct_error": 3.5596012965609805
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 111695.5434055359,
+        "residual": -1343.2934055358928,
+        "pct_error": -1.217277767817052
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "2": {
+     "features": [
+      "R&D Spend",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 44240.78110525249,
+       "std_error": 3150.087396443034,
+       "t_stat": 14.044302756554501,
+       "p_value": 2.1042173308436928e-16,
+       "ci_low": 37858.09776469663,
+       "ci_high": 50623.46444580836,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.7946222913248153,
+       "std_error": 0.045003319592492166,
+       "t_stat": 17.656970608394428,
+       "p_value": 1.2963896535671269e-19,
+       "ci_low": 0.7034369043552174,
+       "ci_high": 0.8858076782944132,
+       "vif": 2.0025488076081874
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.04108352567278528,
+       "std_error": 0.017419633083637427,
+       "t_stat": 2.3584610235778025,
+       "p_value": 0.023744629351646566,
+       "ci_low": 0.005787996409986604,
+       "ci_high": 0.07637905493558396,
+       "vif": 2.002548807608188
+      }
+     ],
+     "train": {
+      "r2": 0.9531930454040326,
+      "adj_r2": 0.9506629397501966,
+      "f_stat": 376.74041159460165,
+      "f_pvalue": 2.516182468262579e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9644.163229763997,
+      "rmse_std": 2881.813438388677,
+      "r2_mean": 0.9265100062114807,
+      "r2_std": 0.04326252274392574
+     },
+     "test": {
+      "rmse": 8941.700647189742,
+      "r2": 0.9135628608271458,
+      "mae": 7048.117217515106,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 172205.9309137603,
+        "residual": -6017.990913760295,
+        "pct_error": -3.621195926587871
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 87354.40898768653,
+        "residual": 2594.7310123134666,
+        "pct_error": 2.88466461415136
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 96445.42738116978,
+        "residual": 1038.1326188302191,
+        "pct_error": 1.0649309676731329
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 63027.79787700969,
+        "residual": 2172.532122990313,
+        "pct_error": 3.332087618253332
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 74188.66803995351,
+        "residual": 4051.2419600464927,
+        "pct_error": 5.177973696603808
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 45113.8063167385,
+        "residual": 19812.273683261505,
+        "pct_error": 30.515123788871136
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 116049.12356453287,
+        "residual": -11040.813564532873,
+        "pct_error": -10.51422841157321
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129091.29424990644,
+        "residual": 12494.225750093552,
+        "pct_error": 8.824508148921975
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 101292.79197396191,
+        "residual": 6111.548026038086,
+        "pct_error": 5.690224460238838
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115499.93252328425,
+        "residual": -5147.682523284253,
+        "pct_error": -4.664773507820867
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "3": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48954.88930168674,
+       "std_error": 7419.101491655233,
+       "t_stat": 6.5984930057567786,
+       "p_value": 1.1104723036657053e-07,
+       "ci_low": 33908.25407379565,
+       "ci_high": 64001.52452957782,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8092904581642872,
+       "std_error": 0.04988873345530177,
+       "t_stat": 16.221908276933465,
+       "p_value": 3.9309760644809476e-18,
+       "ci_low": 0.708111417127077,
+       "ci_high": 0.9104694992014974,
+       "vif": 2.4272756826983435
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04210973486979064,
+       "std_error": 0.059910709539702484,
+       "t_stat": -0.7028749149079058,
+       "p_value": 0.48665440765446727,
+       "ci_low": -0.16361428548174348,
+       "ci_high": 0.0793948157421622,
+       "vif": 1.2174257974256955
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03770244154530754,
+       "std_error": 0.018187640665300216,
+       "t_stat": 2.0729704440026224,
+       "p_value": 0.045391870411435546,
+       "ci_low": 0.0008161966200240858,
+       "ci_high": 0.074588686470591,
+       "vif": 2.153168275085275
+      }
+     ],
+     "train": {
+      "r2": 0.9538266883598968,
+      "adj_r2": 0.9499789123898882,
+      "f_stat": 247.8903906554011,
+      "f_pvalue": 4.348108677790726e-24,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9914.1061915156,
+      "rmse_std": 2857.1617914447093,
+      "r2_mean": 0.9228954579810881,
+      "r2_std": 0.042942719428934996
+     },
+     "test": {
+      "rmse": 9186.321442921024,
+      "r2": 0.9087687957162687,
+      "mae": 7288.975844299721,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 173917.9638456016,
+        "residual": -7730.023845601594,
+        "pct_error": -4.651374730080651
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89889.25009002945,
+        "residual": 59.88990997054498,
+        "pct_error": 0.06658197062311544
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95327.78357689022,
+        "residual": 2155.7764231097826,
+        "pct_error": 2.2114256220328663
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61452.565280222145,
+        "residual": 3747.764719777857,
+        "pct_error": 5.748076305408051
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73748.37011369015,
+        "residual": 4491.539886309853,
+        "pct_error": 5.740727317183586
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44608.097108509246,
+        "residual": 20317.982891490756,
+        "pct_error": 31.294023744373224
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 115242.43159434281,
+        "residual": -10234.12159434281,
+        "pct_error": -9.746011143635023
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.05598119623,
+        "residual": 12609.46401880376,
+        "pct_error": 8.90589943011387
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100612.4031327935,
+        "residual": 6791.936867206503,
+        "pct_error": 6.323708024467637
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115103.50828638375,
+        "residual": -4751.258286383745,
+        "pct_error": -4.3055382073167925
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "4": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_New York"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 49197.18822248022,
+       "std_error": 7773.3029682279885,
+       "t_stat": 6.328994048419969,
+       "p_value": 2.853332771060046e-07,
+       "ci_low": 33416.54423798865,
+       "ci_high": 64977.83220697178,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8103686986346511,
+       "std_error": 0.05133017545604164,
+       "t_stat": 15.787374413489745,
+       "p_value": 1.7193810827606268e-17,
+       "ci_low": 0.7061629024828598,
+       "ci_high": 0.9145744947864424,
+       "vif": 2.499281585457759
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04316553527943273,
+       "std_error": 0.06134339980307925,
+       "t_stat": -0.7036704098240404,
+       "p_value": 0.4862933132063571,
+       "ci_low": -0.16769925756549442,
+       "ci_high": 0.08136818700662897,
+       "vif": 1.2414373338903901
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03743633554855389,
+       "std_error": 0.018566533418587935,
+       "t_stat": 2.016334159131419,
+       "p_value": 0.05149024865807718,
+       "ci_low": -0.000255731144646415,
+       "ci_high": 0.0751284022417542,
+       "vif": 2.1824406029628234
+      },
+      {
+       "name": "State_New York",
+       "estimate": -398.9278594320531,
+       "std_error": 3223.5021315697445,
+       "t_stat": -0.12375604021635553,
+       "p_value": 0.9022164320003686,
+       "ci_low": -6942.985093463672,
+       "ci_high": 6145.129374599565,
+       "vif": 1.0354073430812167
+      }
+     ],
+     "train": {
+      "r2": 0.9538468843797718,
+      "adj_r2": 0.9485722425946029,
+      "f_stat": 180.83633414912967,
+      "f_pvalue": 7.435372245081303e-23,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10212.08779470296,
+      "rmse_std": 2907.661454939657,
+      "r2_mean": 0.9186823502612227,
+      "r2_std": 0.04391664042725925
+     },
+     "test": {
+      "rmse": 9208.830610101848,
+      "r2": 0.9083211618453684,
+      "mae": 7305.327391759898,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174119.55757093112,
+        "residual": -7931.617570931121,
+        "pct_error": -4.772679395948419
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 90072.49154402122,
+        "residual": -123.35154402122134,
+        "pct_error": -0.13713476751553305
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95052.37620766407,
+        "residual": 2431.183792335927,
+        "pct_error": 2.493942355342713
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61547.79271288938,
+        "residual": 3652.537287110623,
+        "pct_error": 5.602022700054774
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73850.53018463631,
+        "residual": 4389.379815363689,
+        "pct_error": 5.610154479170143
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44320.95918065564,
+        "residual": 20605.12081934436,
+        "pct_error": 31.736277347014262
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114934.56821417905,
+        "residual": -9926.258214179048,
+        "pct_error": -9.452831127535571
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129118.65391337048,
+        "residual": 12466.86608662951,
+        "pct_error": 8.805184376643538
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100740.37319690862,
+        "residual": 6663.9668030913745,
+        "pct_error": 6.204560079314649
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115215.24198459211,
+        "residual": -4862.99198459211,
+        "pct_error": -4.406790060548933
+       }
+      ]
+     },
+     "matches_benchmark": false
+    },
+    "5": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida",
+      "State_New York"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 49049.74837646957,
+       "std_error": 7985.345593653788,
+       "t_stat": 6.142470329080183,
+       "p_value": 5.629288974534754e-07,
+       "ci_low": 32821.573638762224,
+       "ci_high": 65277.92311417692,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8109690420004065,
+       "std_error": 0.05232150834006811,
+       "t_stat": 15.499725977497516,
+       "p_value": 5.583877665635225e-17,
+       "ci_low": 0.7046389439570819,
+       "ci_high": 0.9172991400437311,
+       "vif": 2.523572296662442
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04355931570591648,
+       "std_error": 0.062317483290611236,
+       "t_stat": -0.6989902898161346,
+       "p_value": 0.4893124310509501,
+       "ci_low": -0.17020367895775984,
+       "ci_high": 0.08308504754592688,
+       "vif": 1.245072033090096
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.0370947899005421,
+       "std_error": 0.01905887936090062,
+       "t_stat": 1.946325867230276,
+       "p_value": 0.059917640072473584,
+       "ci_low": -0.0016375130343969715,
+       "ci_high": 0.07582709283548117,
+       "vif": 2.234915235360452
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 450.2064920230914,
+       "std_error": 3849.501851490646,
+       "t_stat": 0.11695188348818629,
+       "p_value": 0.907586305575453,
+       "ci_low": -7372.922509277166,
+       "ci_high": 8273.33549332335,
+       "vif": 1.3837437239033665
+      },
+      {
+       "name": "State_New York",
+       "estimate": -180.19383532685606,
+       "std_error": 3766.997306965107,
+       "t_stat": -0.04783487235142989,
+       "p_value": 0.9621277302159837,
+       "ci_low": -7835.653429021327,
+       "ci_high": 7475.265758367615,
+       "vif": 1.3741415925483325
+      }
+     ],
+     "train": {
+      "r2": 0.9538654436917416,
+      "adj_r2": 0.9470809501169978,
+      "f_stat": 140.59493655394195,
+      "f_pvalue": 1.0655748119689368e-21,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10539.902410305362,
+      "rmse_std": 2931.328726251455,
+      "r2_mean": 0.913738817357668,
+      "r2_std": 0.044717310847078647
+     },
+     "test": {
+      "rmse": 9232.955617841004,
+      "r2": 0.9078401779041556,
+      "mae": 7376.850877896648,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174346.58589527966,
+        "residual": -8158.645895279653,
+        "pct_error": -4.90928878189335
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89864.01996245034,
+        "residual": 85.12003754965554,
+        "pct_error": 0.09463129669683949
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95070.11162618364,
+        "residual": 2413.4483738163544,
+        "pct_error": 2.4757491148418813
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61343.02989782006,
+        "residual": 3857.3001021799428,
+        "pct_error": 5.9160745078743355
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73614.65408666717,
+        "residual": 4625.255913332832,
+        "pct_error": 5.911632456290954
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44343.314524148846,
+        "residual": 20582.765475851156,
+        "pct_error": 31.701845353748688
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114878.17276126926,
+        "residual": -9869.862761269265,
+        "pct_error": -9.399125422806314
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129342.30319201016,
+        "residual": 12243.216807989826,
+        "pct_error": 8.647223817795652
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100529.68054523374,
+        "residual": 6874.6594547662535,
+        "pct_error": 6.400727805567498
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115410.48395693155,
+        "residual": -5058.233956931552,
+        "pct_error": -4.583716196934409
+       }
+      ]
+     },
+     "matches_benchmark": true
+    }
+   },
+   "path_order": [
+    {
+     "feature": "R&D Spend",
+     "entry_alpha": 79103.91935104433
+    },
+    {
+     "feature": "Marketing Spend",
+     "entry_alpha": 62100.185412988336
+    },
+    {
+     "feature": "Administration",
+     "entry_alpha": 23860.386894137646
+    },
+    {
+     "feature": "State_New York",
+     "entry_alpha": 6794.100016942927
+    },
+    {
+     "feature": "State_Florida",
+     "entry_alpha": 474.2155378945077
+    }
+   ]
+  },
+  {
+   "id": "exhaustive",
+   "name": "Exhaustive Search",
+   "tag": "Best Subset",
+   "description": "窮舉所有大小為 k 的特徵組合，以訓練集 CV RMSE 選最佳，作為 benchmark。",
+   "best_k": 2,
+   "matches_benchmark_count": 5,
+   "matches_benchmark_all": true,
+   "results": {
+    "1": {
+     "features": [
+      "R&D Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 47340.895206521265,
+       "std_error": 3029.7136863918977,
+       "t_stat": 15.6255343266115,
+       "p_value": 3.939859553218671e-18,
+       "ci_low": 41207.56050146529,
+       "ci_high": 53474.22991157724,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8697213443665944,
+       "std_error": 0.03365688639908273,
+       "t_stat": 25.84081409236647,
+       "p_value": 1.0283544059446711e-25,
+       "ci_low": 0.8015865399648432,
+       "ci_high": 0.9378561487683457,
+       "vif": 1.0
+      }
+     ],
+     "train": {
+      "r2": 0.9461563934871722,
+      "adj_r2": 0.9447394564736767,
+      "f_stat": 667.7476729562455,
+      "f_pvalue": 1.0283544059446734e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9943.368985790796,
+      "rmse_std": 3173.867074211241,
+      "r2_mean": 0.9203272372569914,
+      "r2_std": 0.050784340984637036
+     },
+     "test": {
+      "rmse": 7530.2320384624945,
+      "r2": 0.9386976886430561,
+      "mae": 5891.228481437276,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 170934.68199568198,
+        "residual": -4746.7419956819795,
+        "pct_error": -2.8562493738606904
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 85669.47136668986,
+        "residual": 4279.668633310139,
+        "pct_error": 4.75787609899343
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 100512.50980982825,
+        "residual": -3028.9498098282493,
+        "pct_error": -3.1071391010220073
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 66629.34905433406,
+        "residual": -1429.0190543340577,
+        "pct_error": -2.1917359227078417
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 72349.14975048197,
+        "residual": 5890.760249518033,
+        "pct_error": 7.529098959237085
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 48210.81658679707,
+        "residual": 16715.263413202934,
+        "pct_error": 25.745067949894608
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 110054.41401756991,
+        "residual": -5046.104017569916,
+        "pct_error": -4.805433034366438
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.2020438112,
+        "residual": 12609.317956188796,
+        "pct_error": 8.905796268000286
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 103581.17372079723,
+        "residual": 3823.1662792027637,
+        "pct_error": 3.5596012965609805
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 111695.5434055359,
+        "residual": -1343.2934055358928,
+        "pct_error": -1.217277767817052
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "2": {
+     "features": [
+      "R&D Spend",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 44240.78110525249,
+       "std_error": 3150.087396443034,
+       "t_stat": 14.044302756554501,
+       "p_value": 2.1042173308436928e-16,
+       "ci_low": 37858.09776469663,
+       "ci_high": 50623.46444580836,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.7946222913248153,
+       "std_error": 0.045003319592492166,
+       "t_stat": 17.656970608394428,
+       "p_value": 1.2963896535671269e-19,
+       "ci_low": 0.7034369043552174,
+       "ci_high": 0.8858076782944132,
+       "vif": 2.0025488076081874
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.04108352567278528,
+       "std_error": 0.017419633083637427,
+       "t_stat": 2.3584610235778025,
+       "p_value": 0.023744629351646566,
+       "ci_low": 0.005787996409986604,
+       "ci_high": 0.07637905493558396,
+       "vif": 2.002548807608188
+      }
+     ],
+     "train": {
+      "r2": 0.9531930454040326,
+      "adj_r2": 0.9506629397501966,
+      "f_stat": 376.74041159460165,
+      "f_pvalue": 2.516182468262579e-25,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9644.163229763997,
+      "rmse_std": 2881.813438388677,
+      "r2_mean": 0.9265100062114807,
+      "r2_std": 0.04326252274392574
+     },
+     "test": {
+      "rmse": 8941.700647189742,
+      "r2": 0.9135628608271458,
+      "mae": 7048.117217515106,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 172205.9309137603,
+        "residual": -6017.990913760295,
+        "pct_error": -3.621195926587871
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 87354.40898768653,
+        "residual": 2594.7310123134666,
+        "pct_error": 2.88466461415136
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 96445.42738116978,
+        "residual": 1038.1326188302191,
+        "pct_error": 1.0649309676731329
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 63027.79787700969,
+        "residual": 2172.532122990313,
+        "pct_error": 3.332087618253332
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 74188.66803995351,
+        "residual": 4051.2419600464927,
+        "pct_error": 5.177973696603808
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 45113.8063167385,
+        "residual": 19812.273683261505,
+        "pct_error": 30.515123788871136
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 116049.12356453287,
+        "residual": -11040.813564532873,
+        "pct_error": -10.51422841157321
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129091.29424990644,
+        "residual": 12494.225750093552,
+        "pct_error": 8.824508148921975
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 101292.79197396191,
+        "residual": 6111.548026038086,
+        "pct_error": 5.690224460238838
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115499.93252328425,
+        "residual": -5147.682523284253,
+        "pct_error": -4.664773507820867
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "3": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48954.88930168674,
+       "std_error": 7419.101491655233,
+       "t_stat": 6.5984930057567786,
+       "p_value": 1.1104723036657053e-07,
+       "ci_low": 33908.25407379565,
+       "ci_high": 64001.52452957782,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8092904581642872,
+       "std_error": 0.04988873345530177,
+       "t_stat": 16.221908276933465,
+       "p_value": 3.9309760644809476e-18,
+       "ci_low": 0.708111417127077,
+       "ci_high": 0.9104694992014974,
+       "vif": 2.4272756826983435
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04210973486979064,
+       "std_error": 0.059910709539702484,
+       "t_stat": -0.7028749149079058,
+       "p_value": 0.48665440765446727,
+       "ci_low": -0.16361428548174348,
+       "ci_high": 0.0793948157421622,
+       "vif": 1.2174257974256955
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03770244154530754,
+       "std_error": 0.018187640665300216,
+       "t_stat": 2.0729704440026224,
+       "p_value": 0.045391870411435546,
+       "ci_low": 0.0008161966200240858,
+       "ci_high": 0.074588686470591,
+       "vif": 2.153168275085275
+      }
+     ],
+     "train": {
+      "r2": 0.9538266883598968,
+      "adj_r2": 0.9499789123898882,
+      "f_stat": 247.8903906554011,
+      "f_pvalue": 4.348108677790726e-24,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 9914.1061915156,
+      "rmse_std": 2857.1617914447093,
+      "r2_mean": 0.9228954579810881,
+      "r2_std": 0.042942719428934996
+     },
+     "test": {
+      "rmse": 9186.321442921024,
+      "r2": 0.9087687957162687,
+      "mae": 7288.975844299721,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 173917.9638456016,
+        "residual": -7730.023845601594,
+        "pct_error": -4.651374730080651
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89889.25009002945,
+        "residual": 59.88990997054498,
+        "pct_error": 0.06658197062311544
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95327.78357689022,
+        "residual": 2155.7764231097826,
+        "pct_error": 2.2114256220328663
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61452.565280222145,
+        "residual": 3747.764719777857,
+        "pct_error": 5.748076305408051
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73748.37011369015,
+        "residual": 4491.539886309853,
+        "pct_error": 5.740727317183586
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44608.097108509246,
+        "residual": 20317.982891490756,
+        "pct_error": 31.294023744373224
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 115242.43159434281,
+        "residual": -10234.12159434281,
+        "pct_error": -9.746011143635023
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 128976.05598119623,
+        "residual": 12609.46401880376,
+        "pct_error": 8.90589943011387
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100612.4031327935,
+        "residual": 6791.936867206503,
+        "pct_error": 6.323708024467637
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115103.50828638375,
+        "residual": -4751.258286383745,
+        "pct_error": -4.3055382073167925
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "4": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 48937.34103697141,
+       "std_error": 7522.193787454953,
+       "t_stat": 6.505727241245242,
+       "p_value": 1.6752044414325382e-07,
+       "ci_low": 33666.47579122364,
+       "ci_high": 64208.206282719184,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8107239764847969,
+       "std_error": 0.05132256068888737,
+       "t_stat": 15.796639247977724,
+       "p_value": 1.6885833537293613e-17,
+       "ci_low": 0.7065336391321773,
+       "ci_high": 0.9149143138374165,
+       "vif": 2.499377032669314
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.0432799403923414,
+       "std_error": 0.06115250047946639,
+       "t_stat": -0.7077378693104105,
+       "p_value": 0.48379462363818587,
+       "ci_low": -0.167426116448039,
+       "ci_high": 0.08086623566335621,
+       "vif": 1.234135958234787
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.03711600044046419,
+       "std_error": 0.01878018396610488,
+       "t_stat": 1.9763384910101212,
+       "p_value": 0.056039349941943505,
+       "ci_low": -0.0010097999231252971,
+       "ci_high": 0.07524180080405368,
+       "vif": 2.2337055277255082
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 541.6310701348193,
+       "std_error": 3293.551512370176,
+       "t_stat": 0.16445198081782517,
+       "p_value": 0.8703214306277314,
+       "ci_low": -6144.633967228783,
+       "ci_high": 7227.896107498422,
+       "vif": 1.042642490731318
+      }
+     ],
+     "train": {
+      "r2": 0.9538623388700072,
+      "adj_r2": 0.9485894633122937,
+      "f_stat": 180.8998388886008,
+      "f_pvalue": 7.392034710419369e-23,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10210.686213652072,
+      "rmse_std": 2740.374133475925,
+      "r2_mean": 0.9184043726392592,
+      "r2_std": 0.043209990000010835
+     },
+     "test": {
+      "rmse": 9230.184548183652,
+      "r2": 0.9078954891118884,
+      "mae": 7399.216484249986,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174324.07675963675,
+        "residual": -8136.136759636749,
+        "pct_error": -4.895744396155791
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89759.3189416299,
+        "residual": 189.82105837010022,
+        "pct_error": 0.2110315433478299
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95167.4480065979,
+        "residual": 2316.111993402097,
+        "pct_error": 2.3759000937205177
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61269.03756764932,
+        "residual": 3931.2924323506813,
+        "pct_error": 6.029559102462643
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73531.98398181028,
+        "residual": 4707.926018189726,
+        "pct_error": 6.017294777294255
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44445.581575961434,
+        "residual": 20480.498424038567,
+        "pct_error": 31.54433229919097
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114971.50158897782,
+        "residual": -9963.191588977817,
+        "pct_error": -9.488002986599648
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129339.18706283616,
+        "residual": 12246.332937163825,
+        "pct_error": 8.649424699053847
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100443.34008473232,
+        "residual": 6960.9999152676755,
+        "pct_error": 6.481116047328885
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115412.10371510262,
+        "residual": -5059.853715102625,
+        "pct_error": -4.585184004043982
+       }
+      ]
+     },
+     "matches_benchmark": true
+    },
+    "5": {
+     "features": [
+      "R&D Spend",
+      "Administration",
+      "Marketing Spend",
+      "State_Florida",
+      "State_New York"
+     ],
+     "coefficients": [
+      {
+       "name": "Intercept",
+       "estimate": 49049.74837646957,
+       "std_error": 7985.345593653788,
+       "t_stat": 6.142470329080183,
+       "p_value": 5.629288974534754e-07,
+       "ci_low": 32821.573638762224,
+       "ci_high": 65277.92311417692,
+       "vif": null
+      },
+      {
+       "name": "R&D Spend",
+       "estimate": 0.8109690420004065,
+       "std_error": 0.05232150834006811,
+       "t_stat": 15.499725977497516,
+       "p_value": 5.583877665635225e-17,
+       "ci_low": 0.7046389439570819,
+       "ci_high": 0.9172991400437311,
+       "vif": 2.523572296662442
+      },
+      {
+       "name": "Administration",
+       "estimate": -0.04355931570591648,
+       "std_error": 0.062317483290611236,
+       "t_stat": -0.6989902898161346,
+       "p_value": 0.4893124310509501,
+       "ci_low": -0.17020367895775984,
+       "ci_high": 0.08308504754592688,
+       "vif": 1.245072033090096
+      },
+      {
+       "name": "Marketing Spend",
+       "estimate": 0.0370947899005421,
+       "std_error": 0.01905887936090062,
+       "t_stat": 1.946325867230276,
+       "p_value": 0.059917640072473584,
+       "ci_low": -0.0016375130343969715,
+       "ci_high": 0.07582709283548117,
+       "vif": 2.234915235360452
+      },
+      {
+       "name": "State_Florida",
+       "estimate": 450.2064920230914,
+       "std_error": 3849.501851490646,
+       "t_stat": 0.11695188348818629,
+       "p_value": 0.907586305575453,
+       "ci_low": -7372.922509277166,
+       "ci_high": 8273.33549332335,
+       "vif": 1.3837437239033665
+      },
+      {
+       "name": "State_New York",
+       "estimate": -180.19383532685606,
+       "std_error": 3766.997306965107,
+       "t_stat": -0.04783487235142989,
+       "p_value": 0.9621277302159837,
+       "ci_low": -7835.653429021327,
+       "ci_high": 7475.265758367615,
+       "vif": 1.3741415925483325
+      }
+     ],
+     "train": {
+      "r2": 0.9538654436917416,
+      "adj_r2": 0.9470809501169978,
+      "f_stat": 140.59493655394195,
+      "f_pvalue": 1.0655748119689368e-21,
+      "n": 40
+     },
+     "cv": {
+      "rmse_mean": 10539.902410305362,
+      "rmse_std": 2931.328726251455,
+      "r2_mean": 0.913738817357668,
+      "r2_std": 0.044717310847078647
+     },
+     "test": {
+      "rmse": 9232.955617841004,
+      "r2": 0.9078401779041556,
+      "mae": 7376.850877896648,
+      "rows": [
+       {
+        "sample_id": 4,
+        "state": "Florida",
+        "actual": 166187.94,
+        "predicted": 174346.58589527966,
+        "residual": -8158.645895279653,
+        "pct_error": -4.90928878189335
+       },
+       {
+        "sample_id": 37,
+        "state": "California",
+        "actual": 89949.14,
+        "predicted": 89864.01996245034,
+        "residual": 85.12003754965554,
+        "pct_error": 0.09463129669683949
+       },
+       {
+        "sample_id": 31,
+        "state": "New York",
+        "actual": 97483.56,
+        "predicted": 95070.11162618364,
+        "residual": 2413.4483738163544,
+        "pct_error": 2.4757491148418813
+       },
+       {
+        "sample_id": 44,
+        "state": "California",
+        "actual": 65200.33,
+        "predicted": 61343.02989782006,
+        "residual": 3857.3001021799428,
+        "pct_error": 5.9160745078743355
+       },
+       {
+        "sample_id": 40,
+        "state": "California",
+        "actual": 78239.91,
+        "predicted": 73614.65408666717,
+        "residual": 4625.255913332832,
+        "pct_error": 5.911632456290954
+       },
+       {
+        "sample_id": 45,
+        "state": "New York",
+        "actual": 64926.08,
+        "predicted": 44343.314524148846,
+        "residual": 20582.765475851156,
+        "pct_error": 31.701845353748688
+       },
+       {
+        "sample_id": 27,
+        "state": "New York",
+        "actual": 105008.31,
+        "predicted": 114878.17276126926,
+        "residual": -9869.862761269265,
+        "pct_error": -9.399125422806314
+       },
+       {
+        "sample_id": 12,
+        "state": "Florida",
+        "actual": 141585.52,
+        "predicted": 129342.30319201016,
+        "residual": 12243.216807989826,
+        "pct_error": 8.647223817795652
+       },
+       {
+        "sample_id": 25,
+        "state": "California",
+        "actual": 107404.34,
+        "predicted": 100529.68054523374,
+        "residual": 6874.6594547662535,
+        "pct_error": 6.400727805567498
+       },
+       {
+        "sample_id": 22,
+        "state": "Florida",
+        "actual": 110352.25,
+        "predicted": 115410.48395693155,
+        "residual": -5058.233956931552,
+        "pct_error": -4.583716196934409
+       }
+      ]
+     },
+     "matches_benchmark": true
+    }
+   }
+  }
+ ],
+ "exhaustive_tables": {
+  "1": [
+   {
+    "features": [
+     "R&D Spend"
+    ],
+    "rmse_mean": 9943.368985790796,
+    "rmse_std": 3173.867074211241,
+    "r2_mean": 0.9203272372569914,
+    "r2_std": 0.050784340984637036
+   },
+   {
+    "features": [
+     "Marketing Spend"
+    ],
+    "rmse_mean": 28026.94501329733,
+    "rmse_std": 9510.689117424909,
+    "r2_mean": 0.3255995057490263,
+    "r2_std": 0.6030974293810535
+   },
+   {
+    "features": [
+     "Administration"
+    ],
+    "rmse_mean": 40630.893497544246,
+    "rmse_std": 10437.249098638125,
+    "r2_mean": -0.1531370542504933,
+    "r2_std": 0.3244227070911797
+   },
+   {
+    "features": [
+     "State_Florida"
+    ],
+    "rmse_mean": 42770.741718595455,
+    "rmse_std": 9701.71060341866,
+    "r2_mean": -0.2753855248069445,
+    "r2_std": 0.2624603000410647
+   },
+   {
+    "features": [
+     "State_New York"
+    ],
+    "rmse_mean": 43377.43171764488,
+    "rmse_std": 10152.833251258053,
+    "r2_mean": -0.31309910259918483,
+    "r2_std": 0.30076159083664605
+   }
+  ],
+  "2": [
+   {
+    "features": [
+     "R&D Spend",
+     "Marketing Spend"
+    ],
+    "rmse_mean": 9644.163229763997,
+    "rmse_std": 2881.813438388677,
+    "r2_mean": 0.9265100062114807,
+    "r2_std": 0.04326252274392574
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Administration"
+    ],
+    "rmse_mean": 10127.974940014228,
+    "rmse_std": 3062.289840376456,
+    "r2_mean": 0.9182157273751304,
+    "r2_std": 0.04901748981509458
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "State_Florida"
+    ],
+    "rmse_mean": 10211.543113680105,
+    "rmse_std": 3063.4379838269215,
+    "r2_mean": 0.9163372080190639,
+    "r2_std": 0.05067629569999337
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "State_New York"
+    ],
+    "rmse_mean": 10241.755630428024,
+    "rmse_std": 3298.0214568449414,
+    "r2_mean": 0.9159860500951444,
+    "r2_std": 0.05261736888671523
+   },
+   {
+    "features": [
+     "Administration",
+     "Marketing Spend"
+    ],
+    "rmse_mean": 26480.181717899075,
+    "rmse_std": 9005.713941188362,
+    "r2_mean": 0.4081641873548464,
+    "r2_std": 0.499500469075179
+   },
+   {
+    "features": [
+     "Marketing Spend",
+     "State_Florida"
+    ],
+    "rmse_mean": 28608.01648641999,
+    "rmse_std": 9067.18672218366,
+    "r2_mean": 0.30898010154727057,
+    "r2_std": 0.5864317324256358
+   },
+   {
+    "features": [
+     "Marketing Spend",
+     "State_New York"
+    ],
+    "rmse_mean": 28818.961282347063,
+    "rmse_std": 9124.044963376971,
+    "r2_mean": 0.2953698094852284,
+    "r2_std": 0.5980893101914853
+   },
+   {
+    "features": [
+     "Administration",
+     "State_Florida"
+    ],
+    "rmse_mean": 41850.2681281337,
+    "rmse_std": 10625.69744051445,
+    "r2_mean": -0.22582331829888766,
+    "r2_std": 0.3487959525722734
+   },
+   {
+    "features": [
+     "Administration",
+     "State_New York"
+    ],
+    "rmse_mean": 42260.54543120199,
+    "rmse_std": 10504.6533078186,
+    "r2_mean": -0.2557275901418506,
+    "r2_std": 0.36649031154657985
+   },
+   {
+    "features": [
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 44604.9592183685,
+    "rmse_std": 9952.473133958267,
+    "r2_mean": -0.3988122751398895,
+    "r2_std": 0.3288991081173
+   }
+  ],
+  "3": [
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "Marketing Spend"
+    ],
+    "rmse_mean": 9914.1061915156,
+    "rmse_std": 2857.1617914447093,
+    "r2_mean": 0.9228954579810881,
+    "r2_std": 0.042942719428934996
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Marketing Spend",
+     "State_Florida"
+    ],
+    "rmse_mean": 9939.33883890147,
+    "rmse_std": 2777.5197000354997,
+    "r2_mean": 0.9221478734063463,
+    "r2_std": 0.04379953645891587
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Marketing Spend",
+     "State_New York"
+    ],
+    "rmse_mean": 9972.808603523945,
+    "rmse_std": 2917.5801837371387,
+    "r2_mean": 0.9220047311245007,
+    "r2_std": 0.044433187601131095
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "State_Florida"
+    ],
+    "rmse_mean": 10371.173423114227,
+    "rmse_std": 2943.7810822977603,
+    "r2_mean": 0.9144952707921754,
+    "r2_std": 0.04852269675450972
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "State_New York"
+    ],
+    "rmse_mean": 10392.426665552144,
+    "rmse_std": 3164.2947403149965,
+    "r2_mean": 0.9144733715606993,
+    "r2_std": 0.05010504028148163
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 10553.81403995109,
+    "rmse_std": 3281.8906220266367,
+    "r2_mean": 0.9113706184381779,
+    "r2_std": 0.052633690919482154
+   },
+   {
+    "features": [
+     "Administration",
+     "Marketing Spend",
+     "State_Florida"
+    ],
+    "rmse_mean": 27103.55968239464,
+    "rmse_std": 8682.221463159714,
+    "r2_mean": 0.38986181474448023,
+    "r2_std": 0.47896516882262585
+   },
+   {
+    "features": [
+     "Administration",
+     "Marketing Spend",
+     "State_New York"
+    ],
+    "rmse_mean": 27216.999844283215,
+    "rmse_std": 8608.125986650162,
+    "r2_mean": 0.3786023344896188,
+    "r2_std": 0.4882264210498848
+   },
+   {
+    "features": [
+     "Marketing Spend",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 29540.14856383598,
+    "rmse_std": 8926.662010347665,
+    "r2_mean": 0.26555008694306165,
+    "r2_std": 0.6010239682039571
+   },
+   {
+    "features": [
+     "Administration",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 43645.56611939246,
+    "rmse_std": 10383.115336055102,
+    "r2_mean": -0.3487642779280904,
+    "r2_std": 0.39360156185098316
+   }
+  ],
+  "4": [
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "Marketing Spend",
+     "State_Florida"
+    ],
+    "rmse_mean": 10210.686213652072,
+    "rmse_std": 2740.374133475925,
+    "r2_mean": 0.9184043726392592,
+    "r2_std": 0.043209990000010835
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "Marketing Spend",
+     "State_New York"
+    ],
+    "rmse_mean": 10212.08779470296,
+    "rmse_std": 2907.661454939657,
+    "r2_mean": 0.9186823502612227,
+    "r2_std": 0.04391664042725925
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Marketing Spend",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 10278.206354575428,
+    "rmse_std": 2950.6501775702045,
+    "r2_mean": 0.9174191848776303,
+    "r2_std": 0.04551616855069236
+   },
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 10695.749078003722,
+    "rmse_std": 3167.2213040519355,
+    "r2_mean": 0.9097889197350456,
+    "r2_std": 0.05023099344017677
+   },
+   {
+    "features": [
+     "Administration",
+     "Marketing Spend",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 28051.55557190379,
+    "rmse_std": 8431.560957184773,
+    "r2_mean": 0.3461745007860076,
+    "r2_std": 0.4889517554233934
+   }
+  ],
+  "5": [
+   {
+    "features": [
+     "R&D Spend",
+     "Administration",
+     "Marketing Spend",
+     "State_Florida",
+     "State_New York"
+    ],
+    "rmse_mean": 10539.902410305362,
+    "rmse_std": 2931.328726251455,
+    "r2_mean": 0.913738817357668,
+    "r2_std": 0.044717310847078647
+   }
+  ]
+ }
+}

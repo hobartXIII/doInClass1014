@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>50 Startups 特徵選擇比較</title>
+<meta name="description" content="50 Startups 多元線性迴歸：依 CRISP-DM 流程比較 Lasso、Forward SFS、RFE、ElasticNet、Exhaustive Search 五種特徵選擇方法">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Multiple Linear Regression · Feature Selection</p>
+    <h1>50 Startups 多元線性迴歸 <span class="accent">特徵選擇比較</span></h1>
+    <p class="lead">以 Kaggle「50 Startups」資料集（50 家新創公司的研發、行政、行銷支出與所在州別）預測公司利潤 Profit，
+      比較 <strong>5 種特徵選擇方法</strong> 在 k = 1～5 個特徵下的表現。所有選擇與最佳 k 的判定只使用訓練集的
+      Cross-Validation，測試集僅用於最終展示。</p>
+    <ul class="crisp" aria-label="CRISP-DM 階段">
+      <li>Business Understanding</li><li>Data Understanding</li><li>Data Preparation</li>
+      <li>Modeling</li><li>Evaluation</li><li>Deployment</li>
+    </ul>
+    <div class="badges" id="badges"></div>
+  </header>
+
+  <div id="load-error" class="notice error" hidden>
+    無法讀取 <code>results.json</code>。若是直接以檔案開啟本頁，瀏覽器會封鎖讀取；請在 <code>site/</code> 目錄執行
+    <code>python -m http.server</code> 後開啟 <code>http://localhost:8000</code>。
+  </div>
+
+  <main id="app" hidden>
+
+    <section class="panel">
+      <h2><span class="num">1</span>選擇特徵選擇方法</h2>
+      <div class="method-grid" id="method-buttons"></div>
+      <p class="method-desc" id="method-desc"></p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">2</span>特徵數量（k = 1～5）</h2>
+      <div class="k-grid" id="k-buttons"></div>
+      <p class="hint">★ = 該方法依訓練集 CV RMSE 判定的最佳 k</p>
+    </section>
+
+    <section class="panel" id="compare-panel" hidden>
+      <h2>5 種方法比較（k = <span id="compare-k"></span>）</h2>
+      <p class="hint">下方模型細節（方程式、係數表、預測器、殘差）顯示 benchmark：Exhaustive Search 在此 k 的模型。</p>
+      <div class="table-scroll"><table class="tbl" id="compare-table"></table></div>
+      <h3 class="sub">各方法在 k = 1～5 選到的特徵</h3>
+      <div class="table-scroll"><table class="tbl" id="feature-matrix"></table></div>
+    </section>
+
+    <section class="cards" id="metric-cards" aria-label="模型指標"></section>
+
+    <section class="panel">
+      <h2>Active Predictors <span class="count" id="pred-count"></span></h2>
+      <div class="chips" id="active-predictors"></div>
+    </section>
+
+    <section class="chart-grid">
+      <div class="panel">
+        <h2>RMSE by Number of Features</h2>
+        <p class="hint">越低越好 · 實線 = CV（訓練集）、虛線 = Test</p>
+        <div class="chart-box"><canvas id="chart-rmse"></canvas></div>
+      </div>
+      <div class="panel">
+        <h2>R-squared by Number of Features</h2>
+        <p class="hint">越高越好 · 實線 = CV（訓練集）、虛線 = Test</p>
+        <div class="chart-box"><canvas id="chart-r2"></canvas></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>OLS 迴歸方程式 <span class="src">Train</span></h2>
+      <div class="equation" id="equation"></div>
+    </section>
+
+    <section class="panel">
+      <h2>係數與統計檢定 <span class="src">Train · statsmodels OLS</span></h2>
+      <div class="table-scroll"><table class="tbl" id="coef-table"></table></div>
+      <p class="hint">VIF：以訓練集設計矩陣（含截距）計算；VIF &gt; 5 表示可能有多重共線性。</p>
+    </section>
+
+    <section class="panel">
+      <h2>即時利潤預測器</h2>
+      <div class="predict-grid">
+        <form class="inputs" id="predict-form" autocomplete="off">
+          <label>R&amp;D Spend（$）<input type="number" id="in-rd" min="0" step="1000"></label>
+          <label>Administration（$）<input type="number" id="in-admin" min="0" step="1000"></label>
+          <label>Marketing Spend（$）<input type="number" id="in-mkt" min="0" step="1000"></label>
+          <label>State
+            <select id="in-state">
+              <option value="California">California（基準組）</option>
+              <option value="Florida">Florida</option>
+              <option value="New York">New York</option>
+            </select>
+          </label>
+        </form>
+        <div class="predict-out">
+          <p class="label">預測利潤 Predicted Profit</p>
+          <p class="big" id="pred-value">—</p>
+          <p class="formula" id="pred-formula"></p>
+          <p class="hint" id="pred-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>測試集殘差診斷 <span class="src">Test</span></h2>
+      <p class="hint">依 |殘差| 由大到小排序；殘差 = 實際值 − 預測值。</p>
+      <div class="table-scroll"><table class="tbl" id="resid-table"></table></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div>
+      <h3>資料來源</h3>
+      <p><a href="https://raw.githubusercontent.com/Avik-Jain/100-Days-Of-ML-Code/master/datasets/50_Startups.csv">Avik-Jain / 100-Days-Of-ML-Code — 50_Startups.csv</a>（Kaggle 50 Startups）</p>
+      <p class="hint" id="footer-meta"></p>
+    </div>
+    <div>
+      <h3>CRISP-DM</h3>
+      <p>Cross-Industry Standard Process for Data Mining：商業理解 → 資料理解 → 資料準備 → 建模 → 評估 → 部署。
+        本站的分析由 Python（pandas、scikit-learn、statsmodels）產生 <code>results.json</code>，網頁只負責呈現。</p>
+    </div>
+    <div>
+      <h3>相關連結</h3>
+      <p><a href="report/">CRISP-DM 完整分析報告</a>（main.py 產生）；圖表使用 <a href="https://www.chartjs.org/">Chart.js</a>。</p>
+    </div>
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
