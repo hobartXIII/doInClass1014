@@ -85,7 +85,7 @@ function renderMethodButtons() {
       <span class="tags"><span class="tag">疊圖比較</span></span></button>`;
 
   $("method-desc").textContent = state.compare
-    ? "疊加 5 種方法的 CV 與 Test 曲線，並列出各方法在目前 k 選到的特徵。選到相同特徵的方法數值相同；為了辨識，各方法的點在水平方向稍微錯開（數值不變）。"
+    ? "疊加 5 種方法的 CV 曲線，並列出各方法在目前 k 選到的特徵。選到相同特徵的方法數值相同；為了辨識，各方法的點在水平方向稍微錯開（數值不變）。"
     : currentMethod().description;
 }
 
@@ -189,28 +189,19 @@ function buildDatasets(metric) {
   const sets = [];
   for (const m of methods) {
     const color = state.compare ? METHOD_COLORS[m.id] : cssVar("--accent");
-    const testColor = state.compare ? METHOD_COLORS[m.id] : cssVar("--good");
-    const pick = (k, src) => {
-      const r = m.results[String(k)];
-      if (metric === "rmse") return src === "cv" ? r.cv.rmse_mean : r.test.rmse;
-      return src === "cv" ? r.cv.r2_mean : r.test.r2;
+    const pick = (k) => {
+      const cv = m.results[String(k)].cv;
+      return metric === "rmse" ? cv.rmse_mean : cv.r2_mean;
     };
     const radius = (ctx) => (ks[ctx.dataIndex] === state.k ? 7 : 4);
     const dx = state.compare ? METHOD_OFFSETS[m.id] : 0;
     const cvPoint = state.compare ? METHOD_POINTS[m.id] : "circle";
     sets.push({
-      label: state.compare ? `${m.name} · CV` : "CV（Train）",
-      data: ks.map((k) => ({ x: k + dx, y: pick(k, "cv") })),
+      label: state.compare ? m.name : "CV（Train）",
+      data: ks.map((k) => ({ x: k + dx, y: pick(k) })),
       borderColor: color, backgroundColor: color, borderWidth: 2.5,
       pointRadius: radius, pointHoverRadius: 8, pointStyle: cvPoint, tension: 0.15,
       _std: ks.map((k) => (metric === "rmse" ? m.results[String(k)].cv.rmse_std : m.results[String(k)].cv.r2_std)),
-    });
-    sets.push({
-      label: state.compare ? `${m.name} · Test` : "Test",
-      data: ks.map((k) => ({ x: k + dx, y: pick(k, "test") })),
-      borderColor: testColor, backgroundColor: testColor, borderWidth: 2, borderDash: [6, 4],
-      pointRadius: radius, pointHoverRadius: 8, pointStyle: state.compare ? METHOD_POINTS[m.id] : "rectRot",
-      tension: 0.15,
     });
   }
   return sets;
