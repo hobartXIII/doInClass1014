@@ -43,7 +43,7 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 warnings.filterwarnings("ignore", category=FutureWarning)
 sns.set_theme(style="whitegrid")
 
-RANDOM_STATE = 42
+RANDOM_STATE = 13
 DATA_URL = "https://raw.githubusercontent.com/Avik-Jain/100-Days-Of-ML-Code/master/datasets/50_Startups.csv"
 DATA_PATH = Path("50_Startups.csv")
 MODEL_PATH = "startup_profit_model.pkl"
@@ -387,8 +387,8 @@ def export_site_results():
             "target": TARGET,
             "features": SITE_FEATURES,
             "baseline_state": "California",
-            "split": "80/20, random_state=42, stratify=State",
-            "cv": "RepeatedKFold(n_splits=5, n_repeats=10, random_state=42)",
+            "split": f"80/20, random_state={RANDOM_STATE}, stratify=State",
+            "cv": f"RepeatedKFold(n_splits=5, n_repeats=10, random_state={RANDOM_STATE})",
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "versions": {"python": sys.version.split()[0], "scikit-learn": sklearn.__version__,
                          "statsmodels": statsmodels.__version__, "pandas": pd.__version__},
@@ -489,7 +489,7 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=X[CAT_FEATURE]
     )
-    rpt.p(f"訓練集 {X_train.shape}、測試集 {X_test.shape}（80/20，random_state=42，依 State 分層）")
+    rpt.p(f"訓練集 {X_train.shape}、測試集 {X_test.shape}（80/20，random_state={RANDOM_STATE}，依 State 分層）")
     rpt.table(pd.DataFrame({"train": X_train[CAT_FEATURE].value_counts(),
                             "test": X_test[CAT_FEATURE].value_counts()}), "{:,.0f}")
     rpt.p("State 使用完整 one-hot（drop=None）：California=100、Florida=010、New York=001。"
