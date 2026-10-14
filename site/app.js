@@ -156,6 +156,23 @@ function renderOverlapNote() {
   note.textContent = parts.join(" ");
 }
 
+// ---------- k = 1～5 表格（格式同作業範例：Number of Features / Selected Features / RMSE / R-squared） ----------
+function renderKTable() {
+  const m = currentMethod();
+  const name = state.compare ? `${m.name}（benchmark）` : m.name;
+  $("k-table-hint").textContent =
+    `方法：${name} · RMSE 與 R-squared 為訓練集 CV 平均（${DATA.meta.cv}）· ★ = 最佳 k · 點選列可切換 k`;
+  const rows = [1, 2, 3, 4, 5].map((k) => {
+    const r = m.results[String(k)];
+    const star = k === m.best_k ? ' <span class="star">★</span>' : "";
+    return `<tr data-k="${k}" class="${k === state.k ? "hl" : ""}" style="cursor:pointer">
+      <td>${k}${star}</td><td class="left">[${r.features.map(esc).join(", ")}]</td>
+      <td>${r.cv.rmse_mean.toFixed(6)}</td><td>${r.cv.r2_mean.toFixed(6)}</td></tr>`;
+  }).join("");
+  $("k-table").innerHTML = `<thead><tr><th>Number of Features</th><th class="left">Selected Features</th>
+    <th>RMSE</th><th>R-squared</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
 // ---------- 指標卡片 ----------
 function renderCards() {
   const r = currentResult();
@@ -339,6 +356,7 @@ function renderAll() {
   renderCards();
   renderPredictors();
   renderCharts();
+  renderKTable();
   renderEquation();
   renderCoefTable();
   renderPrediction();
@@ -357,6 +375,10 @@ function bindEvents() {
     if (btn.dataset.method === "__compare") state.compare = true;
     else { state.compare = false; state.method = btn.dataset.method; }
     renderAll();
+  });
+  $("k-table").addEventListener("click", (e) => {
+    const row = e.target.closest("tr[data-k]");
+    if (row) setK(Number(row.dataset.k));
   });
   $("k-buttons").addEventListener("click", (e) => {
     const btn = e.target.closest("[data-k]");
