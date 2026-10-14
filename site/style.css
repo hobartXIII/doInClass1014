@@ -86,6 +86,7 @@ h2 { font-size: 1.1rem; margin: 0 0 12px; display: flex; align-items: center; ga
 }
 .notice { padding: 14px 16px; border-radius: var(--radius); margin-bottom: 16px; }
 .notice.error { background: var(--bad-soft); color: var(--bad); }
+.notice.overlap { background: var(--accent-soft); color: var(--text); font-size: .9rem; margin-top: -4px; }
 
 /* Method & k buttons */
 .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }

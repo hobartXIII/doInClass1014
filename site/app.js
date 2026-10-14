@@ -22,6 +22,15 @@ const METHOD_COLORS = {
   elasticnet: "#c2389a",
   exhaustive: "#6b4fd8",
 };
+const METHOD_POINTS = {
+  lasso: "circle",
+  forward: "rect",
+  rfe: "triangle",
+  elasticnet: "rectRot",
+  exhaustive: "star",
+};
+// Compare 模式下各方法在 x 軸的水平偏移，避免選到相同特徵的方法曲線完全重疊
+const METHOD_OFFSETS = { lasso: -0.16, forward: -0.08, rfe: 0, elasticnet: 0.08, exhaustive: 0.16 };
 const BENCHMARK = "exhaustive";
 
 let DATA = null;
@@ -76,7 +85,7 @@ function renderMethodButtons() {
       <span class="tags"><span class="tag">疊圖比較</span></span></button>`;
 
   $("method-desc").textContent = state.compare
-    ? "疊加 5 種方法的 CV 與 Test 曲線，並列出各方法在目前 k 選到的特徵。選到相同特徵的方法，曲線會完全重疊。"
+    ? "疊加 5 種方法的 CV 與 Test 曲線，並列出各方法在目前 k 選到的特徵。選到相同特徵的方法數值相同；為了辨識，各方法的點在水平方向稍微錯開（數值不變）。"
     : currentMethod().description;
 }
 
@@ -120,6 +129,33 @@ function renderCompare() {
   $("feature-matrix").innerHTML = `<thead><tr><th>方法</th>${head}</tr></thead><tbody>${body}</tbody>`;
 }
 
+// ---------- Compare 模式：說明曲線為何重疊（依 results.json 實際結果產生） ----------
+function renderOverlapNote() {
+  const note = $("overlap-note");
+  note.hidden = !state.compare;
+  if (!state.compare) return;
+  const bench = methodById(BENCHMARK);
+  const others = DATA.methods.filter((m) => m.id !== BENCHMARK);
+  const same = others.filter((m) => m.matches_benchmark_all).map((m) => m.name);
+  const parts = [];
+  if (same.length) {
+    parts.push(`${same.join("、")} 在 k = 1～5 都與 ${bench.name} 選到相同特徵，數值完全相同，因此曲線重疊。`);
+  }
+  for (const m of others.filter((x) => !x.matches_benchmark_all)) {
+    const diffs = [1, 2, 3, 4, 5].filter((k) => !m.results[String(k)].matches_benchmark).map((k) => {
+      const mine = m.results[String(k)];
+      const ref = bench.results[String(k)];
+      const add = mine.features.filter((f) => !ref.features.includes(f)).map((f) => LABELS[f]);
+      const drop = ref.features.filter((f) => !mine.features.includes(f)).map((f) => LABELS[f]);
+      const delta = mine.cv.rmse_mean - ref.cv.rmse_mean;
+      return `k = ${k}（選 ${add.join("、")}，而非 ${drop.join("、")}；CV RMSE 差 ${money(Math.abs(delta), 0)}）`;
+    });
+    parts.push(`${m.name} 只在 ${diffs.join("；")} 與 ${bench.name} 不同，其餘 k 也與其重疊。`);
+  }
+  parts.push("圖中各方法的點在水平方向稍微錯開，只是為了辨識，數值不變。");
+  note.textContent = parts.join(" ");
+}
+
 // ---------- 指標卡片 ----------
 function renderCards() {
   const r = currentResult();
@@ -159,19 +195,22 @@ function buildDatasets(metric) {
       if (metric === "rmse") return src === "cv" ? r.cv.rmse_mean : r.test.rmse;
       return src === "cv" ? r.cv.r2_mean : r.test.r2;
     };
-    const radius = (ctx) => (ks[ctx.dataIndex] === state.k ? 7 : 3.5);
+    const radius = (ctx) => (ks[ctx.dataIndex] === state.k ? 7 : 4);
+    const dx = state.compare ? METHOD_OFFSETS[m.id] : 0;
+    const cvPoint = state.compare ? METHOD_POINTS[m.id] : "circle";
     sets.push({
       label: state.compare ? `${m.name} · CV` : "CV（Train）",
-      data: ks.map((k) => pick(k, "cv")),
+      data: ks.map((k) => ({ x: k + dx, y: pick(k, "cv") })),
       borderColor: color, backgroundColor: color, borderWidth: 2.5,
-      pointRadius: radius, pointHoverRadius: 8, tension: 0.15,
+      pointRadius: radius, pointHoverRadius: 8, pointStyle: cvPoint, tension: 0.15,
       _std: ks.map((k) => (metric === "rmse" ? m.results[String(k)].cv.rmse_std : m.results[String(k)].cv.r2_std)),
     });
     sets.push({
       label: state.compare ? `${m.name} · Test` : "Test",
-      data: ks.map((k) => pick(k, "test")),
+      data: ks.map((k) => ({ x: k + dx, y: pick(k, "test") })),
       borderColor: testColor, backgroundColor: testColor, borderWidth: 2, borderDash: [6, 4],
-      pointRadius: radius, pointHoverRadius: 8, pointStyle: "rectRot", tension: 0.15,
+      pointRadius: radius, pointHoverRadius: 8, pointStyle: state.compare ? METHOD_POINTS[m.id] : "rectRot",
+      tension: 0.15,
     });
   }
   return sets;
@@ -184,7 +223,7 @@ function renderCharts() {
     const fmt = metric === "rmse" ? (v) => money(v, 0) : (v) => num(v, 3);
     const config = {
       type: "line",
-      data: { labels: ["k=1", "k=2", "k=3", "k=4", "k=5"], datasets: buildDatasets(metric) },
+      data: { datasets: buildDatasets(metric) },
       options: {
         responsive: true, maintainAspectRatio: false, animation: { duration: 250 },
         interaction: { mode: "index", intersect: false },
@@ -192,6 +231,7 @@ function renderCharts() {
           legend: { position: "bottom", labels: { color: text, boxWidth: 14, font: { size: 11 } } },
           tooltip: {
             callbacks: {
+              title: (items) => `k = ${Math.round(items[0].parsed.x)}`,
               label: (ctx) => {
                 const std = ctx.dataset._std ? ` ± ${fmt(ctx.dataset._std[ctx.dataIndex])}` : "";
                 return `${ctx.dataset.label}: ${fmt(ctx.parsed.y)}${std}`;
@@ -200,7 +240,9 @@ function renderCharts() {
           },
         },
         scales: {
-          x: { ticks: { color: text }, grid: { color: grid } },
+          x: { type: "linear", min: 0.6, max: 5.4,
+               ticks: { color: text, stepSize: 1, callback: (v) => (Number.isInteger(v) ? `k=${v}` : "") },
+               grid: { color: grid } },
           y: { ticks: { color: text, callback: fmt }, grid: { color: grid },
                title: { display: true, text: metric === "rmse" ? "RMSE ($)" : "R²", color: text } },
         },
@@ -302,6 +344,7 @@ function renderAll() {
   renderMethodButtons();
   renderKButtons();
   renderCompare();
+  renderOverlapNote();
   renderCards();
   renderPredictors();
   renderCharts();
