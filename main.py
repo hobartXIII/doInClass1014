@@ -542,14 +542,15 @@ def main():
     # Forward Stepwise Feature Selection（逐步向前特徵選擇）
     # ------------------------------------------------------------------
     rpt.h3("Forward Stepwise Feature Selection（逐步向前特徵選擇）")
+    rpt.p("依作業範例圖的設定：train/test 80/20、random_state=0（不分層），State one-hot 後 drop first"
+          "（California 為基準組，共 5 個欄位）；每一步加入讓測試集 RMSE 最低的特徵，圖表為測試集 RMSE 與 R²。"
+          "註：此做法由測試集決定特徵，與上方只用訓練集 CV 的分析不同。")
 
-    # One-hot encode State into individual dummy columns
-    X_train_fs = X_train.copy()
-    X_test_fs = X_test.copy()
-    state_dummies_train = pd.get_dummies(X_train_fs[CAT_FEATURE], prefix="State")
-    state_dummies_test = pd.get_dummies(X_test_fs[CAT_FEATURE], prefix="State")
-    X_train_fs = pd.concat([X_train_fs.drop(columns=[CAT_FEATURE]), state_dummies_train], axis=1)
-    X_test_fs = pd.concat([X_test_fs.drop(columns=[CAT_FEATURE]), state_dummies_test], axis=1)
+    # One-hot encode State（drop first），使用範例圖的切分（random_state=0，不分層）
+    X_fs = pd.get_dummies(df[ALL_FEATURES], columns=[CAT_FEATURE], drop_first=True, dtype=float)
+    X_train_fs, X_test_fs, y_train_fs, y_test_fs = train_test_split(
+        X_fs, df[TARGET], test_size=0.2, random_state=0
+    )
 
     all_indiv_features = list(X_train_fs.columns)
     fs_selected = []
@@ -561,41 +562,46 @@ def main():
         best_feat = None
         for feat in fs_remaining:
             trial = fs_selected + [feat]
-            m = LinearRegression().fit(X_train_fs[trial], y_train)
-            rmse_val = root_mean_squared_error(y_test, m.predict(X_test_fs[trial]))
+            m = LinearRegression().fit(X_train_fs[trial], y_train_fs)
+            rmse_val = root_mean_squared_error(y_test_fs, m.predict(X_test_fs[trial]))
             if rmse_val < best_rmse:
                 best_rmse = rmse_val
                 best_feat = feat
         fs_selected.append(best_feat)
         fs_remaining.remove(best_feat)
-        m = LinearRegression().fit(X_train_fs[fs_selected], y_train)
+        m = LinearRegression().fit(X_train_fs[fs_selected], y_train_fs)
         pred_fs = m.predict(X_test_fs[fs_selected])
         forward_results.append({
             "Number of Features": step,
             "Selected Features": [f for f in fs_selected],
-            "RMSE": root_mean_squared_error(y_test, pred_fs),
-            "R-squared": r2_score(y_test, pred_fs),
+            "RMSE": root_mean_squared_error(y_test_fs, pred_fs),
+            "R-squared": r2_score(y_test_fs, pred_fs),
         })
 
     fs_df = pd.DataFrame(forward_results)
 
-    # Dual plot: RMSE & R-squared by number of features
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
-    ax1.plot(fs_df["Number of Features"], fs_df["RMSE"], marker="o", color="#1f77b4", linewidth=1.5)
-    ax1.set_title("RMSE by Number of Features", fontsize=13)
-    ax1.set_xlabel("Number of Features")
-    ax1.set_ylabel("RMSE")
+    # Dual plot: RMSE & R-squared by number of features（matplotlib 預設樣式，與範例圖一致）
+    with plt.style.context("default"):
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 6.5))
+        ax1.plot(fs_df["Number of Features"], fs_df["RMSE"], marker="o")
+        ax1.set_title("RMSE by Number of Features")
+        ax1.set_xlabel("Number of Features")
+        ax1.set_ylabel("RMSE")
 
-    ax2.plot(fs_df["Number of Features"], fs_df["R-squared"], marker="o", color="#1f77b4", linewidth=1.5)
-    ax2.set_title("R-squared by Number of Features", fontsize=13)
-    ax2.set_xlabel("Number of Features")
-    ax2.set_ylabel("R-squared")
-    rpt.fig("forward_selection.png", "Forward Stepwise Feature Selection")
+        ax2.plot(fs_df["Number of Features"], fs_df["R-squared"], marker="o")
+        ax2.set_title("R-squared by Number of Features")
+        ax2.set_xlabel("Number of Features")
+        ax2.set_ylabel("R-squared")
+        rpt.fig("forward_selection.png", "Forward Stepwise Feature Selection")
 
-    # Summary table
+    # Summary table：Selected Features 以 [A, B] 形式顯示
     fs_table = fs_df.copy()
-    fs_table["Selected Features"] = fs_table["Selected Features"].apply(lambda x: str(x))
+    fs_table["Selected Features"] = fs_table["Selected Features"].apply(lambda x: "[" + ", ".join(x) + "]")
     rpt.table(fs_table.set_index("Number of Features"), "{:,.6f}")
+
+    fs_best = fs_df.loc[fs_df["RMSE"].idxmin()]
+    rpt.p(f"RMSE 最低：k = {fs_best['Number of Features']}，特徵 = [{', '.join(fs_best['Selected Features'])}]，"
+          f"RMSE = {fs_best['RMSE']:,.2f}，R² = {fs_best['R-squared']:.4f}")
 
     # one-standard-error rule
     best = cv_table.iloc[0]

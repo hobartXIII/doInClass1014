@@ -16,7 +16,7 @@
   "baseline_state": "California",
   "split": "80/20, random_state=42, stratify=State",
   "cv": "RepeatedKFold(n_splits=5, n_repeats=10, random_state=42)",
-  "generated_at": "2026-10-14T12:05:14+00:00",
+  "generated_at": "2026-10-14T12:29:50+00:00",
   "versions": {
    "python": "3.14.3",
    "scikit-learn": "1.9.1",
